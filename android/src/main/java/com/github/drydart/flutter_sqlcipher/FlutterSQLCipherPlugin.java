@@ -6,6 +6,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 /** FlutterSQLCipherPlugin */
 public class FlutterSQLCipherPlugin implements MethodCallHandler {
   /** Plugin registration. */

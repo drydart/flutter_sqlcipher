@@ -28,7 +28,13 @@ android {
         minSdkVersion 16
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
+}
+
+dependencies {
+    // See: https://www.zetetic.net/sqlcipher/sqlcipher-for-android/
+    compile 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 }
