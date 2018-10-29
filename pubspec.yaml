@@ -17,5 +17,5 @@ environment:
 executables:
 flutter:
   plugin:
-    androidPackage: com.github.drydart.fluttersqlcipher
-    pluginClass: FlutterSqlcipherPlugin
+    androidPackage: com.github.drydart.flutter_sqlcipher
+    pluginClass: FlutterSQLCipherPlugin

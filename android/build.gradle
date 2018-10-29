@@ -1,4 +1,4 @@
-group 'com.github.drydart.fluttersqlcipher'
+group 'com.github.drydart.flutter_sqlcipher'
 version '1.0-SNAPSHOT'
 
 buildscript {

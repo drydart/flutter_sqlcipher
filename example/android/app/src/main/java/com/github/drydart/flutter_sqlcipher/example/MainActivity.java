@@ -1,4 +1,4 @@
-package com.github.drydart.fluttersqlcipherexample;
+package com.github.drydart.flutter_sqlcipher.example;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
