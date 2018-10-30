@@ -1,27 +1,27 @@
+/* This is free and unencumbered software released into the public domain. */
+
 package com.github.drydart.flutter_sqlcipher;
 
-import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 /** FlutterSQLCipherPlugin */
-public class FlutterSQLCipherPlugin implements MethodCallHandler {
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_sqlcipher");
-    channel.setMethodCallHandler(new FlutterSQLCipherPlugin());
-  }
+public class FlutterSQLCipherPlugin {
 
-  @Override
-  public void onMethodCall(MethodCall call, Result result) {
-    if (call.method.equals("getPlatformVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE);
-    } else {
-      result.notImplemented();
-    }
+  /** Plugin registration. */
+  public static void registerWith(final Registrar registrar) {
+    assert(registrar != null);
+
+    (new MethodChannel(registrar.messenger(), SQLCipherMethodHandler.CHANNEL))
+      .setMethodCallHandler(new SQLCipherMethodHandler());
+
+    (new MethodChannel(registrar.messenger(), SQLiteMethodHandler.CHANNEL))
+      .setMethodCallHandler(new SQLiteMethodHandler());
+
+    (new MethodChannel(registrar.messenger(), SQLiteDatabaseMethodHandler.CHANNEL))
+      .setMethodCallHandler(new SQLiteDatabaseMethodHandler());
+
+    (new MethodChannel(registrar.messenger(), SQLiteCursorMethodHandler.CHANNEL))
+      .setMethodCallHandler(new SQLiteCursorMethodHandler());
   }
 }
