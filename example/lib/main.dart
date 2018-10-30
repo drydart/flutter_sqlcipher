@@ -1,18 +1,26 @@
-import 'package:flutter/material.dart';
+/* This is free and unencumbered software released into the public domain. */
+
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_sqlcipher/flutter_sqlcipher.dart';
+import 'package:flutter_sqlcipher/sqlcipher.dart';
+import 'package:flutter_sqlcipher/sqlite.dart';
 
-void main() => runApp(new MyApp());
+////////////////////////////////////////////////////////////////////////////////
+
+void main() => runApp(MyApp());
+
+////////////////////////////////////////////////////////////////////////////////
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _libraryVersion = "Unknown";
 
   @override
   void initState() {
@@ -22,12 +30,13 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    String libraryVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await FlutterSQLCipher.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      libraryVersion = await SQLCipher.version;
+    }
+    on PlatformException {
+      libraryVersion = "Failed to get SQLCipher library version.";
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -36,19 +45,19 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _libraryVersion = libraryVersion;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Plugin example app'),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("SQLCipher for Flutter"),
         ),
-        body: new Center(
-          child: new Text('Running on: $_platformVersion\n'),
+        body: Center(
+          child: Text("Running on: $_libraryVersion\n"),
         ),
       ),
     );
