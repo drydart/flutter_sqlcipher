@@ -2,10 +2,10 @@
 
 package com.github.drydart.flutter_sqlcipher;
 
+import android.database.Cursor;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 /** SQLiteDatabaseMethodHandler */

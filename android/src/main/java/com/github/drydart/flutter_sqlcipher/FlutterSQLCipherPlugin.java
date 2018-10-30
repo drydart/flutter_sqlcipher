@@ -4,7 +4,6 @@ package com.github.drydart.flutter_sqlcipher;
 
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 /** FlutterSQLCipherPlugin */

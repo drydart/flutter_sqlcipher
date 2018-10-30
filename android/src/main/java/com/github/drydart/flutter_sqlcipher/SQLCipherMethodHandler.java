@@ -2,10 +2,10 @@
 
 package com.github.drydart.flutter_sqlcipher;
 
+import android.database.Cursor;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 /** SQLCipherMethodHandler */
@@ -18,7 +18,10 @@ class SQLCipherMethodHandler implements MethodCallHandler {
     assert(result != null);
 
     if (call.method.equals("getVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE); // TODO
+      final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", (String)null, null);
+      final Cursor cursor = db.rawQuery("PRAGMA cipher_version", null);
+      cursor.moveToNext();
+      result.success(cursor.getString(0));
       return;
     }
 

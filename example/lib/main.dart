@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       libraryVersion = await SQLCipher.version;
+      //libraryVersion = await SQLite.version;
     }
     on PlatformException {
       libraryVersion = "Failed to get SQLCipher library version.";
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
           title: Text("SQLCipher for Flutter"),
         ),
         body: Center(
-          child: Text("Running on: $_libraryVersion\n"),
+          child: Text("Running on: v$_libraryVersion\n"),
         ),
       ),
     );
