@@ -12,18 +12,19 @@ public class FlutterSQLCipherPlugin {
   /** Plugin registration. */
   public static void registerWith(final Registrar registrar) {
     assert(registrar != null);
+
     SQLiteDatabase.loadLibs(registrar.context());
 
     (new MethodChannel(registrar.messenger(), SQLCipherMethodHandler.CHANNEL))
-      .setMethodCallHandler(new SQLCipherMethodHandler());
+      .setMethodCallHandler(new SQLCipherMethodHandler(registrar));
 
     (new MethodChannel(registrar.messenger(), SQLiteMethodHandler.CHANNEL))
-      .setMethodCallHandler(new SQLiteMethodHandler());
+      .setMethodCallHandler(new SQLiteMethodHandler(registrar));
 
     (new MethodChannel(registrar.messenger(), SQLiteDatabaseMethodHandler.CHANNEL))
-      .setMethodCallHandler(new SQLiteDatabaseMethodHandler());
+      .setMethodCallHandler(new SQLiteDatabaseMethodHandler(registrar));
 
     (new MethodChannel(registrar.messenger(), SQLiteCursorMethodHandler.CHANNEL))
-      .setMethodCallHandler(new SQLiteCursorMethodHandler());
+      .setMethodCallHandler(new SQLiteCursorMethodHandler(registrar));
   }
 }
