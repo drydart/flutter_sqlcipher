@@ -17,8 +17,10 @@ import 'cursor.dart' show SQLiteCursor;
 ///
 /// Database names must be unique within an application, not across all
 /// applications.
+///
+/// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase
 class SQLiteDatabase {
-  static const MethodChannel _channel = const MethodChannel('flutter_sqlcipher/SQLiteDatabase');
+  static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteDatabase');
 
   /// Create a memory backed SQLite database.
   ///

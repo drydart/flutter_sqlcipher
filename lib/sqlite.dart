@@ -1,8 +1,11 @@
 /* This is free and unencumbered software released into the public domain. */
 
+/// SQLite interface.
+///
+/// See: https://developer.android.com/reference/android/database/sqlite/package-summary
 library sqlite;
 
-import 'dart:async';
+import 'dart:async' show Future;
 
 import 'package:flutter/services.dart';
 
@@ -10,13 +13,12 @@ export 'src/cursor.dart' show SQLiteCursor;
 export 'src/database.dart' show SQLiteDatabase;
 export 'src/exception.dart';
 
-/// TODO
+/// SQLite interface.
 abstract class SQLite {
-  static const MethodChannel _channel = const MethodChannel('flutter_sqlcipher/SQLite');
+  static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLite');
 
   /// Executes `SELECT sqlite_version()`.
   static Future<String> get version async {
-    final String version = await _channel.invokeMethod('getVersion');
-    return version;
+    return await _channel.invokeMethod('getVersion') as String;
   }
 }
