@@ -19,8 +19,10 @@ import 'cursor.dart' show SQLiteCursor;
 /// applications.
 ///
 /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase
-class SQLiteDatabase {
+abstract class SQLiteDatabase {
   static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteDatabase');
+
+  int get id;
 
   /// Create a memory backed SQLite database.
   ///
@@ -39,9 +41,12 @@ class SQLiteDatabase {
   /// Deletes a database including its journal file and other auxiliary files
   /// that may have been created by the database engine.
   ///
-  /// @param path
+  /// @param path The database file path
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#deleteDatabase(java.io.File)
   static Future<bool> deleteDatabase(final String path) {
-    return Future.value(false); // TODO
+    final Map<String, dynamic> args = <String, dynamic>{'path': path};
+    return _channel.invokeMethod('deleteDatabase', args) as Future<bool>;
   }
 
   /// Open the database according to the specified parameters.
@@ -84,4 +89,13 @@ class SQLiteDatabase {
   SQLiteCursor rawQuery(final String sql) {
     return null; // TODO
   }
+}
+
+class _SQLiteDatabase extends SQLiteDatabase {
+  final int _id;
+
+  _SQLiteDatabase(final int id) : _id = id;
+
+  @override
+  int get id => _id;
 }
