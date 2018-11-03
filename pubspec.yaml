@@ -2,7 +2,7 @@
 name: flutter_sqlcipher
 version: 0.0.3
 description: >-
-  SQLCipher for Flutter
+  SQLCipher Database for Flutter
 author: Arto Bendiken <arto@bendiken.net>
 homepage: https://github.com/drydart/flutter_sqlcipher
 documentation:
