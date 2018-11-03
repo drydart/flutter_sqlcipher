@@ -3,7 +3,7 @@
 import 'dart:async' show Future;
 import 'dart:ui' show Locale;
 
-import 'package:flutter/services.dart' show MethodChannel;
+import 'package:flutter/services.dart' show MethodChannel, PlatformException;
 
 import 'cursor.dart' show SQLiteCursor;
 
@@ -22,28 +22,40 @@ import 'cursor.dart' show SQLiteCursor;
 abstract class SQLiteDatabase {
   static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteDatabase');
 
+  /// The internal database identifier.
   int get id;
 
   /// Create a memory backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
-  static Future<SQLiteDatabase> create({password}) {
+  ///
+  /// Throws an [SQLiteException] if the database cannot be created.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#create(android.database.sqlite.SQLiteDatabase.CursorFactory)
+  static Future<SQLiteDatabase> create({String password}) {
     return createInMemory(password: password);
   }
 
   /// Create a memory backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
-  static Future<SQLiteDatabase> createInMemory({password}) async {
-    final Map<String, dynamic> args = <String, dynamic>{'password': password};
-    final int id = await _channel.invokeMethod('createInMemory', args);
-    return _SQLiteDatabase(id);
+  ///
+  /// Throws an [SQLiteException] if the database cannot be created.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#createInMemory(android.database.sqlite.SQLiteDatabase.OpenParams)
+  static Future<SQLiteDatabase> createInMemory({String password}) async {
+    try {
+      final Map<String, dynamic> args = <String, dynamic>{'password': password};
+      final int id = await _channel.invokeMethod('createInMemory', args);
+      return _SQLiteDatabase(id);
+    }
+    on PlatformException catch (error) {
+      throw error; // TODO: error handling
+    }
   }
 
   /// Deletes a database including its journal file and other auxiliary files
   /// that may have been created by the database engine.
-  ///
-  /// @param path The database file path
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#deleteDatabase(java.io.File)
   static Future<bool> deleteDatabase(final String path) {
@@ -66,16 +78,28 @@ abstract class SQLiteDatabase {
   }
 
   /// Gets the path to the database file.
-  String get path => null; // TODO
+  Future<String> get path {
+    final Map<String, dynamic> args = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getPath', args) as Future<String>;
+  }
 
   /// Gets the database version.
-  Future<int> get version => null; // TODO
+  Future<int> get version {
+    final Map<String, dynamic> args = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getVersion', args) as Future<int>;
+  }
 
   /// Returns true if the database is currently open.
-  bool get isOpen => null; // TODO
+  Future<bool> get isOpen {
+    final Map<String, dynamic> args = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isOpen', args) as Future<bool>;
+  }
 
   /// Returns true if the database is opened as read only.
-  bool get isReadOnly => null; // TODO
+  Future<bool> get isReadOnly {
+    final Map<String, dynamic> args = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isReadOnly', args) as Future<bool>;
+  }
 
   /// Sets the locale for this database.
   ///

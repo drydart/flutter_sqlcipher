@@ -44,9 +44,36 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         result.success(android.database.sqlite.SQLiteDatabase.deleteDatabase(path));
         break;
       }
+      case "getPath": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.getPath().toString());
+        break;
+      }
+      case "getVersion": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.getVersion());
+        break;
+      }
+      case "isOpen": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.isOpen());
+        break;
+      }
+      case "isReadOnly": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.isReadOnly());
+        break;
+      }
       default: {
         result.notImplemented();
       }
     }
+  }
+
+  SQLiteDatabase getDatabaseArgument(final MethodCall call) {
+    if (!call.hasArgument("id")) throw new AssertionError();
+    final int id = call.argument("id");
+    if (!this.databases.containsKey(id)) throw new AssertionError();
+    return this.databases.get(id);
   }
 }
