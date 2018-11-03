@@ -7,7 +7,7 @@ library sqlite;
 
 import 'dart:async' show Future;
 
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show MethodChannel;
 
 export 'src/cursor.dart' show SQLiteCursor;
 export 'src/database.dart' show SQLiteDatabase;

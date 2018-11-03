@@ -9,7 +9,7 @@ library sqlcipher;
 
 import 'dart:async' show Future;
 
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show MethodChannel;
 
 /// SQLCipher interface.
 abstract class SQLCipher {
