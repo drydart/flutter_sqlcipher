@@ -27,15 +27,17 @@ abstract class SQLiteDatabase {
   /// Create a memory backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
-  static Future<SQLiteDatabase> create() {
-    return Future.value(null); // TODO
+  static Future<SQLiteDatabase> create({password}) {
+    return createInMemory(password: password);
   }
 
   /// Create a memory backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
-  static Future<SQLiteDatabase> createInMemory() {
-    return Future.value(null); // TODO
+  static Future<SQLiteDatabase> createInMemory({password}) async {
+    final Map<String, dynamic> args = <String, dynamic>{'password': password};
+    final int id = await _channel.invokeMethod('createInMemory', args);
+    return _SQLiteDatabase(id);
   }
 
   /// Deletes a database including its journal file and other auxiliary files

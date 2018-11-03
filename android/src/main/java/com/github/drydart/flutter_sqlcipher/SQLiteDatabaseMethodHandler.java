@@ -18,6 +18,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
   final Registrar registrar;
   final Map<Integer, SQLiteDatabase> databases = new HashMap<>();
+  int databaseID;
 
   SQLiteDatabaseMethodHandler(final Registrar registrar) {
     this.registrar = registrar;
@@ -30,6 +31,14 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
     assert(call.method != null);
     switch (call.method) {
+      case "createInMemory": {
+        final String password = call.argument("password");
+        final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", password, null);
+        databaseID += 1;
+        this.databases.put(databaseID, db);
+        result.success(databaseID);
+        break;
+      }
       case "deleteDatabase": {
         final File path = new File((String)call.argument("path"));
         result.success(android.database.sqlite.SQLiteDatabase.deleteDatabase(path));
