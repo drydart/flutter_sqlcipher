@@ -1,10 +1,8 @@
 /* This is free and unencumbered software released into the public domain. */
 
-import 'dart:io' show IOException;
+import 'package:flutter_android/android_database.dart' show SQLException;
 
-/// An exception that indicates there was an error with SQL parsing or
-/// execution.
-class SQLException extends IOException {}
+export 'package:flutter_android/android_database.dart' show SQLException;
 
 /// A SQLite exception that indicates there was an error with SQL parsing or
 /// execution.
