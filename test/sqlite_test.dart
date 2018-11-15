@@ -8,4 +8,10 @@ void main() {
   group("sqlite", () {
     // TODO
   });
+  group("sqlite.SQLiteCursor", () {
+    // TODO
+  });
+  group("sqlite.SQLiteDatabase", () {
+    // TODO
+  });
 }

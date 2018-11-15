@@ -1,10 +1,10 @@
 /* This is free and unencumbered software released into the public domain. */
 
 import 'dart:async' show Future;
-import 'dart:typed_data' show ByteBuffer;
 
 import 'package:flutter/services.dart' show MethodChannel;
-import 'package:flutter_android/android_database.dart' show Cursor;
+import 'package:flutter_android/android_database.dart' show Cursor, CursorIndexOutOfBoundsException;
+import 'package:meta/meta.dart' show experimental, required;
 
 /// Exposes results from a query on a [SQLiteDatabase].
 ///
@@ -17,43 +17,59 @@ class SQLiteCursor extends Cursor {
   static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteCursor');
 
   bool _isClosed = false;
+  List<String> _columns = const <String>[];
+  List<List<dynamic>> _rows = const <List<dynamic>>[];
+  int _rowIndex = -1;
+
+  /// Constructs an empty cursor.
+  SQLiteCursor.empty();
+
+  /// Constructs a cursor from the provided column/row data.
+  @experimental
+  SQLiteCursor.from({@required List<String> columns, @required List<List<dynamic>> rows})
+    : assert(columns != null),
+      assert(rows != null),
+      _columns = List.unmodifiable(columns),
+      _rows = rows;
 
   @override
   Future<void> close() {
     _isClosed = true;
+    _columns = null;
+    _rows = null;
+    _rowIndex = -1;
     return Future.value();
   }
 
   @override
-  ByteBuffer getBlob(final int columnIndex) => null; // TODO
+  dynamic get(final int columnIndex) {
+    if (_rowIndex < 0 || _rowIndex >= _rows.length) {
+      throw CursorIndexOutOfBoundsException(_rowIndex, _rows.length);
+    }
+    if (columnIndex < 0 || columnIndex >= _columns.length) {
+      throw CursorIndexOutOfBoundsException(columnIndex, _columns.length);
+    }
+    return _rows[_rowIndex][columnIndex];
+  }
 
   @override
-  List<String> getColumnNames() => <String>[]; // TODO
+  List<String> getColumnNames() => _columns;
 
   @override
-  int getCount() => 0; // TODO
+  int getCount() => _rows.length;
 
   @override
-  double getDouble(final int columnIndex) => null; // TODO
+  int getPosition() => _rowIndex;
 
   @override
-  int getInt(final int columnIndex) => null; // TODO
+  bool get isClosed => _isClosed;
 
   @override
-  int getPosition() => -1; // TODO
-
-  @override
-  String getString(final int columnIndex) => null; // TODO
-
-  @override
-  int getType(final int columnIndex) => null; // TODO
-
-  @override
-  bool get isClosed => _isClosed; // TODO
-
-  @override
-  bool isNull(final int columnIndex) => null; // TODO
-
-  @override
-  bool moveToPosition(final int position) => false; // TODO
+  bool moveToPosition(final int position) {
+    if (position >= -1 && position <= _rows.length) {
+      _rowIndex = position;
+      return true; // request accepted
+    }
+    return false; // request rejected
+  }
 }
