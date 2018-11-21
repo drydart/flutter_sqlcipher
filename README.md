@@ -6,6 +6,11 @@ SQLCipher Database for Flutter
 [![Dartdoc reference](https://img.shields.io/badge/dartdoc-reference-blue.svg)](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/)
 [![Travis CI build status](https://img.shields.io/travis/drydart/flutter_sqlcipher/master.svg)](https://travis-ci.org/drydart/flutter_sqlcipher)
 
+Compatibility
+-------------
+
+Android only, at present.
+
 Reference
 ---------
 
