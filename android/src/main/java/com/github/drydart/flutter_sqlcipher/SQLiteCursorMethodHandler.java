@@ -20,14 +20,17 @@ class SQLiteCursorMethodHandler implements MethodCallHandler {
   }
 
   @Override
-  public void onMethodCall(final MethodCall call, final Result result) {
+  public void
+  onMethodCall(final MethodCall call,
+               final Result result) {
     assert(call != null);
     assert(result != null);
 
     assert(call.method != null);
     switch (call.method) {
-      default:
+      default: {
         result.notImplemented();
+      }
     }
   }
 }

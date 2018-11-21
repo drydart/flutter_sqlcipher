@@ -20,20 +20,26 @@ class SQLCipherMethodHandler implements MethodCallHandler {
   }
 
   @Override
-  public void onMethodCall(final MethodCall call, final Result result) {
+  public void
+  onMethodCall(final MethodCall call,
+               final Result result) {
     assert(call != null);
     assert(result != null);
 
     assert(call.method != null);
     switch (call.method) {
-      case "getVersion":
+
+      case "getVersion": {
         final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", (String)null, null);
         final Cursor cursor = db.rawQuery("PRAGMA cipher_version", null);
         cursor.moveToNext();
         result.success(cursor.getString(0));
         break;
-      default:
+      }
+
+      default: {
         result.notImplemented();
+      }
     }
   }
 }

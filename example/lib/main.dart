@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_android/android_database.dart' show DatabaseUtils;
 import 'package:flutter_sqlcipher/sqlcipher.dart';
 import 'package:flutter_sqlcipher/sqlite.dart';
 
@@ -33,6 +34,8 @@ class _MyAppState extends State<MyApp> {
     String libraryVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
+      final SQLiteDatabase db = await SQLiteDatabase.createInMemory();
+      DatabaseUtils.dumpCursor(await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c"));
       libraryVersion = await SQLCipher.version;
       //libraryVersion = await SQLite.version;
     }

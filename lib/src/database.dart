@@ -112,8 +112,13 @@ abstract class SQLiteDatabase {
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// @param sql
-  SQLiteCursor rawQuery(final String sql) {
-    return null; // TODO
+  Future<SQLiteCursor> rawQuery(final String sql) async {
+    final Map<String, dynamic> args = <String, dynamic>{'id': id, 'sql': sql};
+    final List<dynamic> result = await _channel.invokeMethod('rawQuery', args);
+    assert(result.length == 2);
+    final List<String> columns = (result[0] as List<dynamic>).cast<String>();
+    final List<List<dynamic>> rows = (result[1] as List<dynamic>).cast<List<dynamic>>();
+    return SQLiteCursor.from(columns: columns, rows: rows);
   }
 }
 
