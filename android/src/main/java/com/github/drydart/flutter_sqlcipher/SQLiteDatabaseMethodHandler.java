@@ -99,6 +99,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
   serializeCursor(final Cursor cursor) {
     assert(cursor != null);
     assert(!cursor.isClosed());
+    assert(cursor.isBeforeFirst());
 
     final List<String> columns = Arrays.asList(cursor.getColumnNames());
 
