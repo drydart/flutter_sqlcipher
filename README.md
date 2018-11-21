@@ -11,6 +11,20 @@ Compatibility
 
 Android only, at present.
 
+Example
+-------
+
+```dart
+import 'package:flutter_sqlcipher/sqlite.dart' show SQLiteCursor, SQLiteDatabase;
+import 'package:flutter_android/android_database.dart' show DatabaseUtils;
+
+var db = await SQLiteDatabase.createInMemory();
+
+var cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c");
+
+await DatabaseUtils.dumpCursor(cursor);
+```
+
 Reference
 ---------
 
@@ -19,6 +33,8 @@ Reference
     import 'package:flutter_sqlcipher/sqlite.dart';
 
 - [`SQLite.version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLite/version.html)
+- [`SQLiteCursor`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteCursor-class.html)
+- [`SQLiteDatabase`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase-class.html)
 - [`SQLiteDatabase.create()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/create.html)
 - [`SQLiteDatabase.createInMemory()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/createInMemory.html)
 - [`SQLiteDatabase.deleteDatabase()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/deleteDatabase.html)
@@ -26,6 +42,7 @@ Reference
 - [`SQLiteDatabase.version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/version.html)
 - [`SQLiteDatabase.isOpen`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/isOpen.html)
 - [`SQLiteDatabase.isRedOnly`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/isReadOnly.html)
+- [`SQLiteDatabase.rawQuery()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/rawQuery.html)
 
 ### [`sqlcipher`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/sqlcipher-library.html)
 
