@@ -54,6 +54,14 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "execSQL": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String sql = getRequiredArgument(call, "sql");
+        db.execSQL(sql);
+        result.success(null);
+        break;
+      }
+
       case "getPath": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.getPath().toString());

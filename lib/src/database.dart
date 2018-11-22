@@ -102,6 +102,17 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('deleteDatabase', request) as Future<bool>;
   }
 
+  /// Executes a single SQL statement that is *not* a `SELECT` or any other SQL
+  /// statement that returns data.
+  ///
+  /// It has no means to return any data (such as the number of affected rows).
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#execSQL(java.lang.String)
+  Future<void> execSQL(final String sql) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql};
+    return _channel.invokeMethod('execSQL', request);
+  }
+
   /// Open the database according to the specified parameters.
   ///
   /// @param path

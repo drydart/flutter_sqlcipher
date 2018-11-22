@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2018-11-22
 ### Added
 - `SQLiteDatabase.*` constants
+- `SQLiteDatabase#execSQL()` method
 - `SQLiteDatabase.isWriteAheadLoggingEnabled` getter
 - `SQLiteDatabase#setLocale()` method
 
