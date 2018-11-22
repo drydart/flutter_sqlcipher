@@ -15,7 +15,7 @@ Example
 -------
 
 ```dart
-import 'package:flutter_sqlcipher/sqlite.dart' show SQLiteCursor, SQLiteDatabase;
+import 'package:flutter_sqlcipher/sqlite.dart';
 import 'package:flutter_android/android_database.dart' show DatabaseUtils;
 
 var db = await SQLiteDatabase.createInMemory();

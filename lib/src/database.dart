@@ -22,6 +22,45 @@ import 'cursor.dart' show SQLiteCursor;
 abstract class SQLiteDatabase {
   static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteDatabase');
 
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_ABORT
+  static const int CONFLICT_ABORT = 2;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_FAIL
+  static const int CONFLICT_FAIL = 3;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_IGNORE
+  static const int CONFLICT_IGNORE = 4;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_NONE
+  static const int CONFLICT_NONE = 0;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_REPLACE
+  static const int CONFLICT_REPLACE = 5;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_ROLLBACK
+  static const int CONFLICT_ROLLBACK = 1;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CREATE_IF_NECESSARY
+  static const int CREATE_IF_NECESSARY = 0x10000000;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#ENABLE_WRITE_AHEAD_LOGGING
+  static const int ENABLE_WRITE_AHEAD_LOGGING = 0x20000000;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#MAX_SQL_CACHE_SIZE
+  static const int MAX_SQL_CACHE_SIZE = 100;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#NO_LOCALIZED_COLLATORS
+  static const int NO_LOCALIZED_COLLATORS = 0x00000010;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#OPEN_READONLY
+  static const int OPEN_READONLY = 0x00000001;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#OPEN_READWRITE
+  static const int OPEN_READWRITE = 0x00000000;
+
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#SQLITE_MAX_LIKE_PATTERN_LENGTH
+  static const int SQLITE_MAX_LIKE_PATTERN_LENGTH = 50000;
+
   /// The internal database identifier.
   int get id;
 
