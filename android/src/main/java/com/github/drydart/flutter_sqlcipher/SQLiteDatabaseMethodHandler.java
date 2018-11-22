@@ -27,6 +27,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
     this.registrar = registrar;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void
   onMethodCall(final MethodCall call,
@@ -38,16 +39,16 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
     switch (call.method) {
 
       case "createInMemory": {
-        final String password = call.argument("password");
-        final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", password, null);
         databaseID += 1;
+        final String password = getOptionalArgument(call, "password");
+        final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", password, null);
         this.databases.put(databaseID, db);
         result.success(databaseID);
         break;
       }
 
       case "deleteDatabase": {
-        final File path = new File((String)call.argument("path"));
+        final File path = new File((String)getRequiredArgument(call, "path"));
         result.success(android.database.sqlite.SQLiteDatabase.deleteDatabase(path));
         break;
       }
@@ -78,8 +79,9 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
       case "rawQuery": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
-        final String sql = getArgument(call, "sql");
-        final Cursor cursor = db.rawQuery(sql, null);
+        final String sql = getRequiredArgument(call, "sql");
+        final List<String> args = getRequiredArgument(call, "args");
+        final Cursor cursor = db.rawQuery(sql, args.toArray(new String[0]));
         try {
           result.success(serializeCursor(cursor));
         }
@@ -142,7 +144,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
   getDatabaseArgument(final MethodCall call) {
     assert(call != null);
 
-    final int id = getArgument(call, "id");
+    final int id = getRequiredArgument(call, "id");
     if (!this.databases.containsKey(id)) {
       throw new AssertionError();
     }
@@ -150,14 +152,27 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
   }
 
   private static <T> T
-  getArgument(final MethodCall call,
-              final String name) {
+  getRequiredArgument(final MethodCall call,
+                      final String name) {
     assert(call != null);
     assert(name != null);
 
     if (!call.hasArgument(name)) {
       throw new AssertionError();
     }
-    return call.argument(name);
+    final T arg = call.argument(name);
+    if (arg == null) {
+      throw new AssertionError();
+    }
+    return arg;
+  }
+
+  private static <T> T
+  getOptionalArgument(final MethodCall call,
+                      final String name) {
+    assert(call != null);
+    assert(name != null);
+
+    return call.hasArgument(name) ? (T)call.argument(name) : (T)null;
   }
 }

@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       final SQLiteDatabase db = await SQLiteDatabase.createInMemory();
-      final SQLiteCursor cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c");
+      final SQLiteCursor cursor = await db.rawQuery("SELECT ? AS a, ? as b, ? AS c", ['11', '22', '33']);
       await DatabaseUtils.dumpCursor(cursor);
       libraryVersion = await SQLCipher.version;
       //libraryVersion = await SQLite.version;

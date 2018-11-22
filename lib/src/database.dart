@@ -84,8 +84,8 @@ abstract class SQLiteDatabase {
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#createInMemory(android.database.sqlite.SQLiteDatabase.OpenParams)
   static Future<SQLiteDatabase> createInMemory({String password}) async {
     try {
-      final Map<String, dynamic> args = <String, dynamic>{'password': password};
-      final int id = await _channel.invokeMethod('createInMemory', args);
+      final Map<String, dynamic> request = <String, dynamic>{'password': password};
+      final int id = await _channel.invokeMethod('createInMemory', request);
       return _SQLiteDatabase(id);
     }
     on PlatformException catch (error) {
@@ -98,8 +98,8 @@ abstract class SQLiteDatabase {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#deleteDatabase(java.io.File)
   static Future<bool> deleteDatabase(final String path) {
-    final Map<String, dynamic> args = <String, dynamic>{'path': path};
-    return _channel.invokeMethod('deleteDatabase', args) as Future<bool>;
+    final Map<String, dynamic> request = <String, dynamic>{'path': path};
+    return _channel.invokeMethod('deleteDatabase', request) as Future<bool>;
   }
 
   /// Open the database according to the specified parameters.
@@ -118,26 +118,26 @@ abstract class SQLiteDatabase {
 
   /// Gets the path to the database file.
   Future<String> get path {
-    final Map<String, dynamic> args = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getPath', args) as Future<String>;
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getPath', request) as Future<String>;
   }
 
   /// Gets the database version.
   Future<int> get version {
-    final Map<String, dynamic> args = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getVersion', args) as Future<int>;
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getVersion', request) as Future<int>;
   }
 
   /// Returns true if the database is currently open.
   Future<bool> get isOpen {
-    final Map<String, dynamic> args = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isOpen', args) as Future<bool>;
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isOpen', request) as Future<bool>;
   }
 
   /// Returns true if the database is opened as read only.
   Future<bool> get isReadOnly {
-    final Map<String, dynamic> args = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isReadOnly', args) as Future<bool>;
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isReadOnly', request) as Future<bool>;
   }
 
   /// Sets the locale for this database.
@@ -150,10 +150,10 @@ abstract class SQLiteDatabase {
 
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
-  /// @param sql
-  Future<SQLiteCursor> rawQuery(final String sql) async {
-    final Map<String, dynamic> args = <String, dynamic>{'id': id, 'sql': sql};
-    final List<dynamic> result = await _channel.invokeMethod('rawQuery', args);
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
+  Future<SQLiteCursor> rawQuery(final String sql, final List<String> args) async {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
+    final List<dynamic> result = await _channel.invokeMethod('rawQuery', request);
     assert(result.length == 2);
     final List<String> columns = (result[0] as List<dynamic>).cast<String>();
     final List<List<dynamic>> rows = (result[1] as List<dynamic>).cast<List<dynamic>>();
