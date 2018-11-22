@@ -19,9 +19,4 @@ class SQLiteCursor extends MatrixCursor {
   @experimental
   SQLiteCursor.from({@required List<String> columns, @required List<List<dynamic>> rows})
     : super.from(columns: columns, rows: rows);
-
-  @override
-  bool moveToNext() {
-    return (getPosition() < getCount() - 1) && move(1); // TODO: fix this upstream
-  }
 }
