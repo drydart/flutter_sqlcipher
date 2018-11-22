@@ -8,11 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2018-11-22
 ### Added
+- `SQLCipher.version` getter
+- `SQLite.version` getter
+- `SQLiteCursor` class and methods
+- `SQLiteDatabase` class
 - `SQLiteDatabase.*` constants
+- `SQLiteDatabase.create()` method
+- `SQLiteDatabase.createInMemory()` method
+- `SQLiteDatabase.deleteDatabase()` method
 - `SQLiteDatabase.openDatabase()` method
 - `SQLiteDatabase.openOrCreateDatabase()` method
+- `SQLiteDatabase#path` getter
+- `SQLiteDatabase#version` getter
 - `SQLiteDatabase#execSQL()` method
+- `SQLiteDatabase#getPath()` method
+- `SQLiteDatabase#getVersion()` method
+- `SQLiteDatabase#isOpen` getter
+- `SQLiteDatabase#isReadOnly` getter
 - `SQLiteDatabase#isWriteAheadLoggingEnabled` getter
+- `SQLiteDatabase#rawQuery()` method
 - `SQLiteDatabase#setLocale()` method
 
 [0.1.0]:  https://github.com/drydart/flutter_sqlcipher/compare/0.0.6...0.1.0

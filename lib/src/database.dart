@@ -61,9 +61,6 @@ abstract class SQLiteDatabase {
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#SQLITE_MAX_LIKE_PATTERN_LENGTH
   static const int SQLITE_MAX_LIKE_PATTERN_LENGTH = 50000;
 
-  /// The internal database identifier.
-  int get id;
-
   /// Create a memory-backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
@@ -95,18 +92,9 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('deleteDatabase', request) as Future<bool>;
   }
 
-  /// Executes a single SQL statement that is *not* a `SELECT` or any other SQL
-  /// statement that returns data.
-  ///
-  /// It has no means to return any data (such as the number of affected rows).
-  ///
-  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#execSQL(java.lang.String)
-  Future<void> execSQL(final String sql) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql};
-    return _channel.invokeMethod('execSQL', request);
-  }
-
   /// Open the database according to the specified parameters.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#openDatabase(java.lang.String,%20android.database.sqlite.SQLiteDatabase.CursorFactory,%20int)
   static Future<SQLiteDatabase> openDatabase(final String path, {String password, int flags = OPEN_READWRITE}) async {
     try {
       final Map<String, dynamic> request = <String, dynamic>{'path': path, 'password': password, 'flags': flags};
@@ -119,29 +107,63 @@ abstract class SQLiteDatabase {
   }
 
   /// Equivalent to `openDatabase(path, flags: CREATE_IF_NECESSARY)`.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#openOrCreateDatabase(java.io.File,%20android.database.sqlite.SQLiteDatabase.CursorFactory)
   static Future<SQLiteDatabase> openOrCreateDatabase(final String path, {String password}) {
     return openDatabase(path, password: password, flags: CREATE_IF_NECESSARY);
   }
 
+  /// The internal database identifier.
+  int get id;
+
+  /// The path to the database file.
+  ///
+  /// This is simply a Dart-idiomatic getter alias for [getPath()].
+  Future<String> get path => getPath();
+
+  /// The database version.
+  ///
+  /// This is simply a Dart-idiomatic getter alias for [getVersion()].
+  Future<int> get version => getVersion();
+
+  /// Executes a single SQL statement that is *not* a `SELECT` or any other SQL
+  /// statement that returns data.
+  ///
+  /// It has no means to return any data (such as the number of affected rows).
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#execSQL(java.lang.String)
+  Future<void> execSQL(final String sql) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql};
+    return _channel.invokeMethod('execSQL', request);
+  }
+
   /// Gets the path to the database file.
-  Future<String> get path {
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getPath()
+  Future<String> getPath() {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('getPath', request) as Future<String>;
   }
 
   /// Gets the database version.
-  Future<int> get version {
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getVersion()
+  Future<int> getVersion() {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('getVersion', request) as Future<int>;
   }
 
   /// Returns true if the database is currently open.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isOpen()
   Future<bool> get isOpen {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('isOpen', request) as Future<bool>;
   }
 
   /// Returns true if the database is opened as read only.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isReadOnly()
   Future<bool> get isReadOnly {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('isReadOnly', request) as Future<bool>;
