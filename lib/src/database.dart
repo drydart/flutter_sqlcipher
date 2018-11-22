@@ -64,7 +64,7 @@ abstract class SQLiteDatabase {
   /// The internal database identifier.
   int get id;
 
-  /// Create a memory backed SQLite database.
+  /// Create a memory-backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
   ///
@@ -75,22 +75,15 @@ abstract class SQLiteDatabase {
     return createInMemory(password: password);
   }
 
-  /// Create a memory backed SQLite database.
+  /// Create a memory-backed SQLite database.
   ///
   /// Its contents will be destroyed when the database is closed.
   ///
   /// Throws an [SQLiteException] if the database cannot be created.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#createInMemory(android.database.sqlite.SQLiteDatabase.OpenParams)
-  static Future<SQLiteDatabase> createInMemory({String password}) async {
-    try {
-      final Map<String, dynamic> request = <String, dynamic>{'password': password};
-      final int id = await _channel.invokeMethod('createInMemory', request);
-      return _SQLiteDatabase(id);
-    }
-    on PlatformException catch (error) {
-      throw error; // TODO: error handling
-    }
+  static Future<SQLiteDatabase> createInMemory({String password}) {
+    return openDatabase(':memory:', password: password);
   }
 
   /// Deletes a database including its journal file and other auxiliary files
@@ -114,17 +107,20 @@ abstract class SQLiteDatabase {
   }
 
   /// Open the database according to the specified parameters.
-  ///
-  /// @param path
-  static Future<SQLiteDatabase> openDatabase(final String path) {
-    return Future.value(null); // TODO
+  static Future<SQLiteDatabase> openDatabase(final String path, {String password, int flags = OPEN_READWRITE}) async {
+    try {
+      final Map<String, dynamic> request = <String, dynamic>{'path': path, 'password': password, 'flags': flags};
+      final int id = await _channel.invokeMethod('openDatabase', request);
+      return _SQLiteDatabase(id);
+    }
+    on PlatformException catch (error) {
+      throw error; // TODO: improve error handling
+    }
   }
 
-  /// Equivalent to `openDatabase(path, CREATE_IF_NECESSARY)`.
-  ///
-  /// @param path
-  static Future<SQLiteDatabase> openOrCreateDatabase(final String path) {
-    return Future.value(null); // TODO
+  /// Equivalent to `openDatabase(path, flags: CREATE_IF_NECESSARY)`.
+  static Future<SQLiteDatabase> openOrCreateDatabase(final String path, {String password}) {
+    return openDatabase(path, password: password, flags: CREATE_IF_NECESSARY);
   }
 
   /// Gets the path to the database file.

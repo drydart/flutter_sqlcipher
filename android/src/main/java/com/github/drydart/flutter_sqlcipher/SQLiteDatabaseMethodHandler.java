@@ -39,10 +39,12 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
     assert(call.method != null);
     switch (call.method) {
 
-      case "createInMemory": {
-        databaseID += 1;
+      case "openDatabase": {
+        final String path = getRequiredArgument(call, "path");
         final String password = getOptionalArgument(call, "password");
-        final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", password, null);
+        final int flags = getRequiredArgument(call, "flags");
+        databaseID += 1;
+        final SQLiteDatabase db = SQLiteDatabase.openDatabase(path, password, null, flags);
         this.databases.put(databaseID, db);
         result.success(databaseID);
         break;
