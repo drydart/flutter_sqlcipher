@@ -78,6 +78,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "isWriteAheadLoggingEnabled": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        //result.success(db.isWriteAheadLoggingEnabled()); // TODO: this is missing in SQLCipher
+        result.success(false);
+        break;
+      }
+
       case "rawQuery": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");

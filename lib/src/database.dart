@@ -140,6 +140,14 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('isReadOnly', request) as Future<bool>;
   }
 
+  /// Returns true if write-ahead logging has been enabled for this database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isWriteAheadLoggingEnabled()
+  Future<bool> get isWriteAheadLoggingEnabled {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isWriteAheadLoggingEnabled', request) as Future<bool>;
+  }
+
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
