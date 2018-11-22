@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import net.sqlcipher.database.SQLiteDatabase;
 
 /** SQLiteDatabaseMethodHandler */
+@SuppressWarnings("unchecked")
 class SQLiteDatabaseMethodHandler implements MethodCallHandler {
   static final String CHANNEL = "flutter_sqlcipher/SQLiteDatabase";
 
@@ -27,7 +29,6 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
     this.registrar = registrar;
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public void
   onMethodCall(final MethodCall call,
@@ -88,6 +89,15 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         finally {
           cursor.close();
         }
+        break;
+      }
+
+      case "setLocale": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String localeTag = getRequiredArgument(call, "locale");
+        final Locale locale = Locale.forLanguageTag(localeTag.replace('_', '-'));
+        db.setLocale(locale);
+        result.success(null);
         break;
       }
 

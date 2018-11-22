@@ -140,14 +140,6 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('isReadOnly', request) as Future<bool>;
   }
 
-  /// Sets the locale for this database.
-  ///
-  /// Does nothing if this database has the `NO_LOCALIZED_COLLATORS` flag set or
-  /// was opened read only.
-  Future<void> setLocale(final Locale locale) {
-    return Future.value(null); // TODO
-  }
-
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
@@ -158,6 +150,17 @@ abstract class SQLiteDatabase {
     final List<String> columns = (result[0] as List<dynamic>).cast<String>();
     final List<List<dynamic>> rows = (result[1] as List<dynamic>).cast<List<dynamic>>();
     return SQLiteCursor.from(columns: columns, rows: rows);
+  }
+
+  /// Sets the locale for this database.
+  ///
+  /// Does nothing if this database has the [NO_LOCALIZED_COLLATORS] flag set or
+  /// was opened read-only.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setLocale(java.util.Locale)
+  Future<void> setLocale(final Locale locale) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'locale': locale.toString()};
+    return _channel.invokeMethod('setLocale', request);
   }
 }
 
