@@ -156,8 +156,8 @@ abstract class SQLiteDatabase {
   /// It has no means to return any data (such as the number of affected rows).
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#execSQL(java.lang.String)
-  Future<void> execSQL(final String sql) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql};
+  Future<void> execSQL(final String sql, [final List<dynamic> args]) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
     return _channel.invokeMethod('execSQL', request);
   }
 
