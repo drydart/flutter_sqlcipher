@@ -116,6 +116,16 @@ abstract class SQLiteDatabase {
   /// The internal database identifier.
   int get id;
 
+  /// The maximum size, in bytes, that the database may grow to.
+  ///
+  /// This is simply a Dart-idiomatic getter alias for [getMaximumSize()].
+  Future<int> get maximumSize => getMaximumSize();
+
+  /// The current database page size, in bytes.
+  ///
+  /// This is simply a Dart-idiomatic getter alias for [getPageSize()].
+  Future<int> get pageSize => getPageSize();
+
   /// The path to the database file.
   ///
   /// This is simply a Dart-idiomatic getter alias for [getPath()].
@@ -161,6 +171,22 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('execSQL', request);
   }
 
+  /// Returns the maximum size, in bytes, that the database may grow to.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getMaximumSize()
+  Future<int> getMaximumSize() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getMaximumSize', request) as Future<int>;
+  }
+
+  /// Returns the current database page size, in bytes.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getPageSize()
+  Future<int> getPageSize() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getPageSize', request) as Future<int>;
+  }
+
   /// Gets the path to the database file.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getPath()
@@ -175,6 +201,14 @@ abstract class SQLiteDatabase {
   Future<int> getVersion() {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('getVersion', request) as Future<int>;
+  }
+
+  /// Returns true if the current thread has a transaction pending.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#inTransaction()
+  Future<bool> get inTransaction {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('inTransaction', request) as Future<bool>;
   }
 
   /// Returns true if the database is currently open.
@@ -199,6 +233,15 @@ abstract class SQLiteDatabase {
   Future<bool> get isWriteAheadLoggingEnabled {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('isWriteAheadLoggingEnabled', request) as Future<bool>;
+  }
+
+  /// Returns true if the new version code is greater than the current database
+  /// version.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#needUpgrade(int)
+  Future<bool> needUpgrade(final int newVersion) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'newVersion': newVersion};
+    return _channel.invokeMethod('needUpgrade', request) as Future<bool>;
   }
 
   /// Runs the provided SQL and returns a cursor over the result set.

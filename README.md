@@ -46,7 +46,7 @@ Frequently Asked Questions
 
 SQLCipher for Android 3.5.9, SQLCipher 3.4.2, and SQLite 3.20.1.
 
-### Why use this plugin instead of another plugin wrapping Android's native SQLite support?
+### Why this plugin instead of wrapping Android's native SQLite support?
 
 Two good reasons are:
 
@@ -68,10 +68,18 @@ Two good reasons are:
 ### How much does using this plugin increase my final app size?
 
 Due to the bundled SQLCipher libraries, your final APK size currently
-increases by about 7 MiB. We are investigating potential ways (e.g.,
+increases by about 7 MiB. We are actively investigating ways to reduce that
+footprint. (e.g.,
 [pruning `.so` files](https://github.com/sqlcipher/android-database-sqlcipher/issues/362)
-and [using ProGuard](https://github.com/sqlcipher/android-database-sqlcipher/pull/399))
-to reduce that footprint.
+and [using ProGuard](https://github.com/sqlcipher/android-database-sqlcipher/pull/399)).
+
+### Some of the `android.database.sqlite` API methods are missing?
+
+We don't generally implement methods deprecated in the current Android API
+level. For example, the
+[`SQLiteDatabase#isDbLockedByOtherThreads()`](https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDbLockedByOtherThreads())
+method was deprecated long ago (in Android 4.1), so we have omitted it from
+the Dart interface when implementing this plugin.
 
 Caveats
 -------
@@ -101,17 +109,23 @@ Reference
 - [`SQLiteDatabase.deleteDatabase()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/deleteDatabase.html)
 - [`SQLiteDatabase.openDatabase()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/openDatabase.html)
 - [`SQLiteDatabase.openOrCreateDatabase()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/openOrCreateDatabase.html)
+- [`SQLiteDatabase#inTransaction`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/inTransaction.html)
+- [`SQLiteDatabase#maximumSize`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/maximumSize.html)
+- [`SQLiteDatabase#pageSize`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/pageSize.html)
 - [`SQLiteDatabase#path`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/path.html)
 - [`SQLiteDatabase#version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/version.html)
 - [`SQLiteDatabase#beginTransaction()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/beginTransaction.html)
 - [`SQLiteDatabase#beginTransactionNonExclusive()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/beginTransactionNonExclusive.html)
 - [`SQLiteDatabase#endTransaction()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/endTransaction.html)
 - [`SQLiteDatabase#execSQL()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/execSQL.html)
+- [`SQLiteDatabase#getMaximumSize()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getMaximumSize.html)
+- [`SQLiteDatabase#getPageSize()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getPageSize.html)
 - [`SQLiteDatabase#getPath()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getPath.html)
 - [`SQLiteDatabase#getVersion()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getVersion.html)
 - [`SQLiteDatabase#isOpen`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/isOpen.html)
 - [`SQLiteDatabase#isReadOnly`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/isReadOnly.html)
 - [`SQLiteDatabase#isWriteAheadLoggingEnabled`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/isWriteAheadLoggingEnabled.html)
+- [`SQLiteDatabase#needUpgrade()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/needUpgrade.html)
 - [`SQLiteDatabase#rawQuery()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/rawQuery.html)
 - [`SQLiteDatabase#setLocale()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setLocale.html)
 

@@ -91,6 +91,18 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "getMaximumSize": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.getMaximumSize());
+        break;
+      }
+
+      case "getPageSize": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.getPageSize());
+        break;
+      }
+
       case "getPath": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.getPath().toString());
@@ -100,6 +112,12 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
       case "getVersion": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.getVersion());
+        break;
+      }
+
+      case "inTransaction": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.inTransaction());
         break;
       }
 
@@ -119,6 +137,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         //result.success(db.isWriteAheadLoggingEnabled()); // TODO: this is missing in SQLCipher 3.5.9
         result.success(false);
+        break;
+      }
+
+      case "needUpgrade": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final int newVersion = getRequiredArgument(call, "newVersion");
+        result.success(db.needUpgrade(newVersion));
         break;
       }
 
