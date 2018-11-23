@@ -6,6 +6,11 @@ SQLCipher Database for Flutter
 [![Dartdoc reference](https://img.shields.io/badge/dartdoc-reference-blue.svg)](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/)
 [![Travis CI build status](https://img.shields.io/travis/drydart/flutter_sqlcipher/master.svg)](https://travis-ci.org/drydart/flutter_sqlcipher)
 
+This is a [Flutter](https://flutter.io/) plugin that bundles and wraps
+[SQLCipher for Android](https://www.zetetic.net/sqlcipher/sqlcipher-for-android/),
+an open-source extension to [SQLite](https://www.sqlite.org) that provides
+transparent 256-bit AES encryption of database files.
+
 Compatibility
 -------------
 
@@ -56,3 +61,25 @@ Reference
     import 'package:flutter_sqlcipher/sqlcipher.dart';
 
 - [`SQLCipher.version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/SQLCipher/version.html)
+
+Frequently Asked Questions
+--------------------------
+
+### Why use this plugin instead of a plugin wrapping Android's native SQLite support?
+
+Two good reasons are:
+
+1. **Encryption**.
+   Android's native SQLite support does not support database encryption.
+   By using this plugin, you can trivially enable encryption for your app
+   database, something likely appreciated by both you as well as your users.
+
+2. **Compatibility**.
+   Android's native SQLite version
+   [varies](https://developer.android.com/reference/android/database/sqlite/package-summary)
+   greatly depending on the Android release, from SQLite 3.4 (released in
+   2007) to SQLite 3.19 (released in 2017, bundled in Android 8.1). Further,
+   some device manufacturers include different versions of SQLite on their
+   devices. By using this plugin, you gain a consistent, predictable, and
+   up-to-date version of SQLite for your app regardless of the Android
+   release your app runs on.
