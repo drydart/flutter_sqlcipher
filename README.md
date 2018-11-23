@@ -58,12 +58,12 @@ Two good reasons are:
 2. **Compatibility**.
    Android's native SQLite version
    [varies](https://developer.android.com/reference/android/database/sqlite/package-summary)
-   greatly depending on the Android release, from SQLite 3.4 (released in
-   2007) to SQLite 3.19 (released in 2017, bundled in Android 8.1). Further,
-   some device manufacturers include different versions of SQLite on their
-   devices. By using this plugin, you gain a consistent, predictable, and
-   up-to-date version of SQLite for your app regardless of the Android
-   release your app runs on.
+   greatly depending on the specific Android release, from SQLite 3.4
+   (released in 2007) to SQLite 3.19 (released in 2017, bundled in
+   Android 8.1). Further, some device manufacturers include different
+   versions of SQLite on their devices. By using this plugin, you gain a
+   consistent, predictable, and up-to-date version of SQLite for your app
+   regardless of the Android release your app runs on.
 
 ### How much does using this plugin increase my final app size?
 
