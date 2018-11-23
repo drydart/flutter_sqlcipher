@@ -56,6 +56,32 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "beginTransaction": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String mode = getOptionalArgument(call, "mode", "exclusive");
+        switch (mode) {
+          case "exclusive":
+            db.beginTransaction();
+            break;
+          case "immediate":
+            //db.beginTransactionNonExclusive(); // TODO: this is missing in SQLCipher 3.5.9
+            db.beginTransaction();
+            break;
+          default:
+            assert(false); // unreachable
+            throw new AssertionError();
+        }
+        result.success(null);
+        break;
+      }
+
+      case "endTransaction": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        db.endTransaction();
+        result.success(null);
+        break;
+      }
+
       case "execSQL": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");
@@ -90,7 +116,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
       case "isWriteAheadLoggingEnabled": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
-        //result.success(db.isWriteAheadLoggingEnabled()); // TODO: this is missing in SQLCipher
+        //result.success(db.isWriteAheadLoggingEnabled()); // TODO: this is missing in SQLCipher 3.5.9
         result.success(false);
         break;
       }
@@ -197,9 +223,16 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
   private static <T> T
   getOptionalArgument(final MethodCall call,
                       final String name) {
+    return getOptionalArgument(call, name, (T)null);
+  }
+
+  private static <T> T
+  getOptionalArgument(final MethodCall call,
+                      final String name,
+                      final T defaultValue) {
     assert(call != null);
     assert(name != null);
 
-    return call.hasArgument(name) ? (T)call.argument(name) : (T)null;
+    return call.hasArgument(name) ? (T)call.argument(name) : defaultValue;
   }
 }

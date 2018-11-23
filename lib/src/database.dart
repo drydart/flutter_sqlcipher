@@ -126,6 +126,30 @@ abstract class SQLiteDatabase {
   /// This is simply a Dart-idiomatic getter alias for [getVersion()].
   Future<int> get version => getVersion();
 
+  /// Begins a transaction in `EXCLUSIVE` mode.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransaction()
+  Future<void> beginTransaction() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'mode': 'exclusive'};
+    return _channel.invokeMethod('beginTransaction', request);
+  }
+
+  /// Begins a transaction in `IMMEDIATE` mode.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransactionNonExclusive()
+  Future<void> beginTransactionNonExclusive() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'mode': 'immediate'};
+    return _channel.invokeMethod('beginTransaction', request);
+  }
+
+  /// Ends a transaction.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#endTransaction()
+  Future<void> endTransaction() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('endTransaction', request);
+  }
+
   /// Executes a single SQL statement that is *not* a `SELECT` or any other SQL
   /// statement that returns data.
   ///
