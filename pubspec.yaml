@@ -2,7 +2,8 @@
 name: flutter_sqlcipher
 version: 0.1.2
 description: >-
-  SQLCipher Database for Flutter
+  Flutter plugin for SQLCipher, an extension to SQLite that provides
+  transparent AES encryption of database files.
 author: Arto Bendiken <arto@bendiken.net>
 homepage: https://github.com/drydart/flutter_sqlcipher
 documentation:
