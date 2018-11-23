@@ -68,7 +68,9 @@ Two good reasons are:
 ### How much does using this plugin increase my final app size?
 
 Due to the bundled SQLCipher libraries, your APK size increases by about
-7 MiB. We are investigating potential ways (e.g., ProGuard) to reduce that.
+7 MiB. We are investigating potential ways (e.g.,
+[using ProGuard](https://github.com/sqlcipher/android-database-sqlcipher/pull/399))
+to reduce that footprint.
 
 Caveats
 -------
