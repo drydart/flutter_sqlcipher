@@ -113,7 +113,15 @@ abstract class SQLiteDatabase {
     return openDatabase(path, password: password, flags: CREATE_IF_NECESSARY);
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#releaseMemory()
+  /// Attempts to release memory that SQLite holds but does not require to
+  /// operate properly.
+  ///
+  /// Typically this memory will come from the page cache.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#releaseMemory()
+  static Future<int> releaseMemory() {
+    return _channel.invokeMethod('releaseMemory') as Future<int>;
+  }
 
   /// The internal database identifier.
   int get id;

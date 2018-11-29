@@ -38,6 +38,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
     assert(call.method != null);
     switch (call.method) {
+      /* Static methods */
 
       case "openDatabase": {
         final String path = getRequiredArgument(call, "path");
@@ -55,6 +56,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         result.success(android.database.sqlite.SQLiteDatabase.deleteDatabase(path));
         break;
       }
+
+      case "releaseMemory": {
+        result.success(SQLiteDatabase.releaseMemory());
+        break;
+      }
+
+      /* Instance methods ("id" argument required) */
 
       case "beginTransaction": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
