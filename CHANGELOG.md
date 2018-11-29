@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.3] - 2018-11-29
 ### Added
 - `SQLiteDatabase.releaseMemory()` method
+- `SQLiteDatabase#setVersion()` method
 
 ## [0.1.2] - 2018-11-23
 ### Added

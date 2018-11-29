@@ -303,7 +303,15 @@ abstract class SQLiteDatabase {
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaximumSize(long)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setPageSize(long)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setTransactionSuccessful()
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setVersion(int)
+
+  /// Sets the database version.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setVersion(int)
+  Future<void> setVersion(final int version) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'version': version};
+    return _channel.invokeMethod('setVersion', request);
+  }
+
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#update(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[])
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#updateWithOnConflict(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[],%20int)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#validateSql(java.lang.String,%20android.os.CancellationSignal)
