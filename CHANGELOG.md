@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.4] - 2018-11-30
 ### Added
+### Changed
+- Made the second parameter to `SQLiteDatabase#rawQuery()` optional
 
 ## [0.1.3] - 2018-11-29
 ### Added

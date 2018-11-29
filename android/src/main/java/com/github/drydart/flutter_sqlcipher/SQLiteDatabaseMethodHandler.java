@@ -158,8 +158,8 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
       case "rawQuery": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");
-        final List<String> args = getRequiredArgument(call, "args");
-        final Cursor cursor = db.rawQuery(sql, args.toArray(new String[0]));
+        final List<String> args = getOptionalArgument(call, "args");
+        final Cursor cursor = db.rawQuery(sql, (args != null) ? args.toArray(new String[0]) : new String[0]);
         try {
           result.success(serializeCursor(cursor));
         }

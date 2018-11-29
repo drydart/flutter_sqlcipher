@@ -34,7 +34,7 @@ import 'package:flutter_android/android_database.dart' show DatabaseUtils;
 
 var db = await SQLiteDatabase.createInMemory();
 
-var cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c", []);
+var cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c");
 
 await DatabaseUtils.dumpCursor(cursor);
 ```

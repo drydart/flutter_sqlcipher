@@ -275,7 +275,7 @@ abstract class SQLiteDatabase {
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
-  Future<SQLiteCursor> rawQuery(final String sql, final List<String> args) async {
+  Future<SQLiteCursor> rawQuery(final String sql, [final List<String> args]) async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
     final List<dynamic> result = await _channel.invokeMethod('rawQuery', request);
     assert(result.length == 2);
