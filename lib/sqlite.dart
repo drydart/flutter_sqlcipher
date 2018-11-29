@@ -12,6 +12,9 @@ import 'package:flutter/services.dart' show MethodChannel;
 export 'src/cursor.dart' show SQLiteCursor;
 export 'src/database.dart' show SQLiteDatabase;
 export 'src/exceptions.dart';
+export 'src/program.dart' show SQLiteProgram;
+export 'src/query.dart' show SQLiteQuery;
+export 'src/statement.dart' show SQLiteStatement;
 
 /// SQLite interface.
 abstract class SQLite {

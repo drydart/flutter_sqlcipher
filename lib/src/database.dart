@@ -113,6 +113,8 @@ abstract class SQLiteDatabase {
     return openDatabase(path, password: password, flags: CREATE_IF_NECESSARY);
   }
 
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#releaseMemory()
+
   /// The internal database identifier.
   int get id;
 
@@ -152,6 +154,13 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('beginTransaction', request);
   }
 
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransactionWithListenerNonExclusive(android.database.sqlite.SQLiteTransactionListener)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#compileStatement(java.lang.String)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#delete(java.lang.String,%20java.lang.String,%20java.lang.String[])
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#disableWriteAheadLogging()
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#enableWriteAheadLogging()
+
   /// Ends a transaction.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#endTransaction()
@@ -170,6 +179,8 @@ abstract class SQLiteDatabase {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
     return _channel.invokeMethod('execSQL', request);
   }
+
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getAttachedDbs()
 
   /// Returns the maximum size, in bytes, that the database may grow to.
   ///
@@ -211,6 +222,12 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('inTransaction', request) as Future<bool>;
   }
 
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insert(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertWithOnConflict(java.lang.String,%20java.lang.String,%20android.content.ContentValues,%20int)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDatabaseIntegrityOk()
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDbLockedByCurrentThread()
+
   /// Returns true if the database is currently open.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isOpen()
@@ -244,6 +261,9 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('needUpgrade', request) as Future<bool>;
   }
 
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#query(boolean,%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#queryWithFactory(android.database.sqlite.SQLiteDatabase.CursorFactory,%20boolean,%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String,%20android.os.CancellationSignal)
+
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
@@ -256,6 +276,10 @@ abstract class SQLiteDatabase {
     return SQLiteCursor.from(columns: columns, rows: rows);
   }
 
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replace(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replaceOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setForeignKeyConstraintsEnabled(boolean)
+
   /// Sets the locale for this database.
   ///
   /// Does nothing if this database has the [NO_LOCALIZED_COLLATORS] flag set or
@@ -266,6 +290,16 @@ abstract class SQLiteDatabase {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'locale': locale.toString()};
     return _channel.invokeMethod('setLocale', request);
   }
+
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaxSqlCacheSize(int)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaximumSize(long)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setPageSize(long)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setTransactionSuccessful()
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setVersion(int)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#update(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[])
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#updateWithOnConflict(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[],%20int)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#validateSql(java.lang.String,%20android.os.CancellationSignal)
+  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#yieldIfContendedSafely()
 }
 
 class _SQLiteDatabase extends SQLiteDatabase {
