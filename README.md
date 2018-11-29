@@ -9,7 +9,8 @@ SQLCipher Database for Flutter
 This is a [Flutter](https://flutter.io/) plugin that bundles and wraps
 [SQLCipher for Android](https://www.zetetic.net/sqlcipher/sqlcipher-for-android/),
 an open-source extension to [SQLite](https://www.sqlite.org) that provides
-transparent 256-bit AES encryption of database files.
+transparent 256-bit [AES encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+of database files.
 
 Features
 --------
@@ -23,7 +24,7 @@ Features
 Compatibility
 -------------
 
-Android only, at present.
+Android only, at present. (iOS support is planned.)
 
 Example
 -------
@@ -44,7 +45,9 @@ Frequently Asked Questions
 
 ### Which releases of SQLite and SQLCipher does this plugin bundle?
 
-SQLCipher for Android 3.5.9, SQLCipher 3.4.2, and SQLite 3.20.1.
+[SQLCipher for Android 3.5.9](https://search.maven.org/artifact/net.zetetic/android-database-sqlcipher/3.5.9/aar),
+[SQLCipher 3.4.2](https://discuss.zetetic.net/t/sqlcipher-3-4-2-release/2547), and
+[SQLite 3.20.1](https://www.sqlite.org/releaselog/3_20_1.html).
 
 ### Why this plugin instead of wrapping Android's native SQLite support?
 
@@ -67,7 +70,7 @@ Two good reasons are:
 
 ### How much does using this plugin increase my final app size?
 
-Due to the bundled SQLCipher libraries, your final APK size currently
+Due to the bundled SQLCipher native libraries, your final APK size currently
 increases by about 7 MiB. We are actively investigating ways to reduce that
 footprint. (e.g.,
 [pruning `.so` files](https://github.com/sqlcipher/android-database-sqlcipher/issues/362)
@@ -91,8 +94,9 @@ Caveats
 - **At present, cursors are fully materialized.**
   This means that queries which return very large result sets will incur
   nontrivial overhead in the IPC transfer of the cursor data from Java to
-  Dart. We are planning to add windowed cursor and streaming support in a
-  future release. In the meanwhile, `OFFSET` and `LIMIT` are your friends.
+  Dart. We are planning on adding windowed cursor and streaming support in a
+  future major release. In the meanwhile, `OFFSET` and `LIMIT` are your
+  friends.
 
 Reference
 ---------
