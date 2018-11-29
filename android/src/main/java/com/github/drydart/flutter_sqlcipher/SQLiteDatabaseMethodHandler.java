@@ -178,6 +178,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "setTransactionSuccessful": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        db.setTransactionSuccessful();
+        result.success(null);
+        break;
+      }
+
       case "setVersion": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final int version = getRequiredArgument(call, "version");

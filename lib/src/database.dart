@@ -302,7 +302,19 @@ abstract class SQLiteDatabase {
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaxSqlCacheSize(int)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaximumSize(long)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setPageSize(long)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setTransactionSuccessful()
+
+  /// Marks the current transaction as successful.
+  ///
+  /// Do not do any more database work between calling this and calling
+  /// endTransaction. Do as little non-database work as possible in that
+  /// situation too. If any errors are encountered between this and
+  /// endTransaction the transaction will still be committed.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setTransactionSuccessful()
+  Future<void> setTransactionSuccessful(final int version) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('setTransactionSuccessful', request);
+  }
 
   /// Sets the database version.
   ///
