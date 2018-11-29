@@ -134,3 +134,9 @@ Reference
     import 'package:flutter_sqlcipher/sqlcipher.dart';
 
 - [`SQLCipher.version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/SQLCipher/version.html)
+
+See Also
+--------
+
+- The [sql_builder](https://pub.dartlang.org/packages/sql_builder) package
+  that implements a fluent interface for constructing SQL queries.
