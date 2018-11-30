@@ -217,6 +217,14 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "validateSql": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String sql = getRequiredArgument(call, "sql");
+        //validateSql(sql); // TODO: this is missing in SQLCipher 3.5.9
+        result.success(null);
+        break;
+      }
+
       case "yieldIfContendedSafely": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final long sleepAfterYieldDelay = getRequiredArgument(call, "sleepAfterYieldDelay");

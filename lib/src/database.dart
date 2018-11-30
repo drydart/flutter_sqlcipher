@@ -358,7 +358,16 @@ abstract class SQLiteDatabase {
 
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#update(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[])
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#updateWithOnConflict(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[],%20int)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#validateSql(java.lang.String,%20android.os.CancellationSignal)
+
+  /// Verifies that a SQL `SELECT` statement is valid by compiling it.
+  ///
+  /// If the SQL statement is not valid, this method will throw a [SQLiteException].
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#validateSql(java.lang.String,%20android.os.CancellationSignal)
+  Future<void> validateSql(final String sql) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql};
+    return _channel.invokeMethod('validateSql', request);
+  }
 
   /// Temporarily end the transaction to let other threads run.
   ///
