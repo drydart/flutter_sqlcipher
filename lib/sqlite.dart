@@ -9,6 +9,7 @@ import 'dart:async' show Future;
 
 import 'package:flutter/services.dart' show MethodChannel;
 
+export 'src/closable.dart' show SQLiteClosable;
 export 'src/cursor.dart' show SQLiteCursor;
 export 'src/database.dart' show SQLiteDatabase;
 export 'src/exceptions.dart';

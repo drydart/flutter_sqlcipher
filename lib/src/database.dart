@@ -5,6 +5,7 @@ import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show MethodChannel, PlatformException;
 
+import 'closable.dart' show SQLiteClosable;
 import 'cursor.dart' show SQLiteCursor;
 
 /// Exposes methods to manage a SQLite database.
@@ -19,7 +20,7 @@ import 'cursor.dart' show SQLiteCursor;
 /// applications.
 ///
 /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase
-abstract class SQLiteDatabase {
+abstract class SQLiteDatabase implements SQLiteClosable {
   static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteDatabase');
 
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_ABORT
@@ -164,6 +165,13 @@ abstract class SQLiteDatabase {
 
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransactionWithListenerNonExclusive(android.database.sqlite.SQLiteTransactionListener)
+
+  @override
+  Future<void> close() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('close', request);
+  }
+
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#compileStatement(java.lang.String)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#delete(java.lang.String,%20java.lang.String,%20java.lang.String[])
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#disableWriteAheadLogging()

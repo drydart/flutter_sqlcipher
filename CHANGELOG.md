@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.6] - 2018-11-30
 ### Added
+- `SQLiteClosable` interface
 - `SQLiteCursor#getBool()` method
+- `SQLiteDatabase#close()` method
 
 ## [0.1.5] - 2018-11-30
 ### Added
