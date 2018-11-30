@@ -138,6 +138,7 @@ Reference
 - [`SQLiteDatabase#setPageSize()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setPageSize.html)
 - [`SQLiteDatabase#setTransactionSuccessful()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setTransactionSuccessful.html)
 - [`SQLiteDatabase#setVersion()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setVersion.html)
+- [`SQLiteDatabase#yieldIfContendedSafely()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/yieldIfContendedSafely.html)
 
 ### [`sqlcipher`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/sqlcipher-library.html)
 

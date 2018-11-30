@@ -359,7 +359,25 @@ abstract class SQLiteDatabase {
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#update(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[])
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#updateWithOnConflict(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[],%20int)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#validateSql(java.lang.String,%20android.os.CancellationSignal)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#yieldIfContendedSafely()
+
+  /// Temporarily end the transaction to let other threads run.
+  ///
+  /// The transaction is assumed to be successful so far. Do not call
+  /// [setTransactionSuccessful] before calling this. When this returns a new
+  /// transaction will have been created but not marked as successful. This
+  /// assumes that there are no nested transactions ([beginTransaction] has only
+  /// been called once) and will throw an exception if that is not the case.
+  ///
+  /// If `sleepAfterYieldDelay` > 0, sleep this long before starting a new
+  /// transaction if the lock was actually yielded. This will allow other
+  /// background threads to make some more progress than they would if we
+  /// started the transaction immediately.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#yieldIfContendedSafely()
+  Future<bool> yieldIfContendedSafely([final int sleepAfterYieldDelay = 0]) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sleepAfterYieldDelay': sleepAfterYieldDelay};
+    return _channel.invokeMethod('yieldIfContendedSafely', request) as Future<bool>;
+  }
 }
 
 class _SQLiteDatabase extends SQLiteDatabase {

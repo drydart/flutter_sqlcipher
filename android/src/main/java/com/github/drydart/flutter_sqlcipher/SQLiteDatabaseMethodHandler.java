@@ -217,6 +217,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "yieldIfContendedSafely": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final long sleepAfterYieldDelay = getRequiredArgument(call, "sleepAfterYieldDelay");
+        result.success(db.yieldIfContendedSafely(sleepAfterYieldDelay));
+        break;
+      }
+
       default: {
         result.notImplemented();
       }

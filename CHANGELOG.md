@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.5] - 2018-11-30
 ### Added
+- `SQLiteDatabase#yieldIfContendedSafely()` method
 
 ## [0.1.4] - 2018-11-30
 ### Added
