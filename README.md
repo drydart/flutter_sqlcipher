@@ -26,8 +26,14 @@ Compatibility
 
 Android only, at present. (iOS support is planned.)
 
-Example
--------
+Examples
+--------
+
+### Querying an in-memory database
+
+This example also uses
+[`DatabaseUtils`](https://pub.dartlang.org/documentation/flutter_android/latest/android_database/DatabaseUtils-class.html)
+from the [flutter_android](https://pub.dartlang.org/packages/flutter_android) package.
 
 ```dart
 import 'package:flutter_sqlcipher/sqlite.dart';
