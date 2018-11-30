@@ -25,6 +25,11 @@ class SQLiteConstraintException extends SQLiteException {}
 /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabaseCorruptException
 class SQLiteDatabaseCorruptException extends SQLiteException {}
 
+/// An exception that indicates a column datatype mismatch.
+///
+/// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatatypeMismatchException
+class SQLiteDatatypeMismatchException extends SQLiteException {}
+
 /// An exception that indicates that an IO error occured while accessing the
 /// SQLite database file.
 ///
