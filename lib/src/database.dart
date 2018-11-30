@@ -299,9 +299,41 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('setLocale', request);
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaxSqlCacheSize(int)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaximumSize(long)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setPageSize(long)
+  /// Sets the maximum size of the prepared-statement cache for this database.
+  ///
+  /// (Size of the cache = number of compiled-sql-statements stored in the cache.)
+  ///
+  /// Maximum cache size can *only* be increased from its current size (default =
+  /// 10). If this method is called with smaller size than the current maximum
+  /// value, then an exception is thrown.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaxSqlCacheSize(int)
+  Future<void> setMaxSqlCacheSize(final int cacheSize) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'cacheSize': cacheSize};
+    return _channel.invokeMethod('setMaxSqlCacheSize', request);
+  }
+
+  /// Sets the maximum size the database will grow to.
+  ///
+  /// The maximum size cannot be set below the current size.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaximumSize(long)
+  Future<void> setMaximumSize(final int numBytes) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'numBytes': numBytes};
+    return _channel.invokeMethod('setMaximumSize', request);
+  }
+
+  /// Sets the database page size.
+  ///
+  /// The page size must be a power of two. This method does not work if any
+  /// data has been written to the database file, and must be called right after
+  /// the database has been created.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setPageSize(long)
+  Future<void> setPageSize(final int numBytes) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'numBytes': numBytes};
+    return _channel.invokeMethod('setPageSize', request);
+  }
 
   /// Marks the current transaction as successful.
   ///
@@ -311,7 +343,7 @@ abstract class SQLiteDatabase {
   /// endTransaction the transaction will still be committed.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setTransactionSuccessful()
-  Future<void> setTransactionSuccessful(final int version) {
+  Future<void> setTransactionSuccessful() {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
     return _channel.invokeMethod('setTransactionSuccessful', request);
   }

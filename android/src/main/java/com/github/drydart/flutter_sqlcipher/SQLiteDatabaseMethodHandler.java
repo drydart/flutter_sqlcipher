@@ -178,6 +178,30 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "setMaxSqlCacheSize": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final int cacheSize = getRequiredArgument(call, "cacheSize");
+        db.setMaxSqlCacheSize(cacheSize);
+        result.success(null);
+        break;
+      }
+
+      case "setMaximumSize": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final long numBytes = getRequiredArgument(call, "numBytes");
+        db.setMaximumSize(numBytes);
+        result.success(null);
+        break;
+      }
+
+      case "setPageSize": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final long numBytes = getRequiredArgument(call, "numBytes");
+        db.setPageSize(numBytes);
+        result.success(null);
+        break;
+      }
+
       case "setTransactionSuccessful": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         db.setTransactionSuccessful();

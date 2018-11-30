@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.4] - 2018-11-30
 ### Added
+- `SQLiteDatabase#setMaxSqlCacheSize()` method
+- `SQLiteDatabase#setMaximumSize()` method
+- `SQLiteDatabase#setPageSize()` method
 ### Changed
 - Made the second parameter to `SQLiteDatabase#rawQuery()` optional
 
