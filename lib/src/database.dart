@@ -188,7 +188,14 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('execSQL', request);
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getAttachedDbs()
+  /// Returns list of full pathnames of all attached databases including the
+  /// main database by executing `PRAGMA database_list` on the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getAttachedDbs()
+  Future<Map<String, String>> getAttachedDbs() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('getAttachedDbs', request);
+  }
 
   /// Returns the maximum size, in bytes, that the database may grow to.
   ///

@@ -123,6 +123,7 @@ Reference
 - [`SQLiteDatabase#beginTransactionNonExclusive()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/beginTransactionNonExclusive.html)
 - [`SQLiteDatabase#endTransaction()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/endTransaction.html)
 - [`SQLiteDatabase#execSQL()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/execSQL.html)
+- [`SQLiteDatabase#getAttachedDbs`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getAttachedDbs.html)
 - [`SQLiteDatabase#getMaximumSize()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getMaximumSize.html)
 - [`SQLiteDatabase#getPageSize()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getPageSize.html)
 - [`SQLiteDatabase#getPath()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/getPath.html)

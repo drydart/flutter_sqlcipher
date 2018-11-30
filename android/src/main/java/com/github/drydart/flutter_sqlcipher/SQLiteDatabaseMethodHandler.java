@@ -99,6 +99,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "getAttachedDbs": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        //result.success(db.getAttachedDbs()); // TODO: this is missing in SQLCipher 3.5.9
+        result.notImplemented();
+        break;
+      }
+
       case "getMaximumSize": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.getMaximumSize());
