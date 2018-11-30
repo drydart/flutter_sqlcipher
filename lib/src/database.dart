@@ -233,7 +233,24 @@ abstract class SQLiteDatabase {
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insert(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertWithOnConflict(java.lang.String,%20java.lang.String,%20android.content.ContentValues,%20int)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDatabaseIntegrityOk()
+
+  /// Runs `PRAGMA integrity_check` on the given database (and all the attached
+  /// databases).
+  ///
+  /// Returns true if the given database (and all its attached databases) pass
+  /// the integrity check, false otherwise.
+  ///
+  /// If the result is false, then this method logs the errors reported by the
+  /// `PRAGMA integrity_check` command execution.
+  ///
+  /// Note that `PRAGMA integrity_check` on a database can take a long time.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDatabaseIntegrityOk()
+  Future<bool> get isDatabaseIntegrityOk {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isDatabaseIntegrityOk', request) as Future<bool>;
+  }
+
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDbLockedByCurrentThread()
 
   /// Returns true if the database is currently open.

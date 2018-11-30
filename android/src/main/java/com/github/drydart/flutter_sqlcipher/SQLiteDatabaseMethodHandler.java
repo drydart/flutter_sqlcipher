@@ -129,6 +129,13 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "isDatabaseIntegrityOk": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        //result.success(db.isDatabaseIntegrityOk()); // TODO: this is missing in SQLCipher 3.5.9
+        result.success(true);
+        break;
+      }
+
       case "isOpen": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.isOpen());
