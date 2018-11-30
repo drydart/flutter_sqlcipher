@@ -251,7 +251,14 @@ abstract class SQLiteDatabase {
     return _channel.invokeMethod('isDatabaseIntegrityOk', request) as Future<bool>;
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDbLockedByCurrentThread()
+  /// Returns true if the current thread is holding an active connection to the
+  /// database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDbLockedByCurrentThread()
+  Future<bool> get isDbLockedByCurrentThread {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('isDbLockedByCurrentThread', request) as Future<bool>;
+  }
 
   /// Returns true if the database is currently open.
   ///

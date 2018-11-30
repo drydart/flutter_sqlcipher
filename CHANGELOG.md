@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `SQLiteCursor#getDateTime()` method
 - `SQLiteDatabase#isDatabaseIntegrityOk` getter
+- `SQLiteDatabase#isDbLockedByCurrentThread` getter
 - `SQLiteDatabase#validateSql()` method
 - `SQLiteDatabase#yieldIfContendedSafely()` method
 - `SQLiteDatatypeMismatchException` exception

@@ -136,6 +136,12 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "isDbLockedByCurrentThread": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.isDbLockedByCurrentThread());
+        break;
+      }
+
       case "isOpen": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.isOpen());
