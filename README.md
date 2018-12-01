@@ -51,9 +51,9 @@ Frequently Asked Questions
 
 ### Which releases of SQLite and SQLCipher does this plugin bundle?
 
-[SQLCipher for Android 3.5.9](https://search.maven.org/artifact/net.zetetic/android-database-sqlcipher/3.5.9/aar),
-[SQLCipher 3.4.2](https://discuss.zetetic.net/t/sqlcipher-3-4-2-release/2547), and
-[SQLite 3.20.1](https://www.sqlite.org/releaselog/3_20_1.html).
+[SQLCipher for Android 4.0.0](https://search.maven.org/artifact/net.zetetic/android-database-sqlcipher/4.0.0/aar),
+[SQLCipher 4.0.0](https://www.zetetic.net/blog/2018/11/30/sqlcipher-400-release/), and
+[SQLite 3.25.2](https://www.sqlite.org/releaselog/3_25_2.html).
 
 ### Why this plugin instead of wrapping Android's native SQLite support?
 
@@ -77,7 +77,7 @@ Two good reasons are:
 ### How much does using this plugin increase my final app size?
 
 Due to the bundled SQLCipher native libraries, your final APK size currently
-increases by about 7 MiB. We are actively investigating ways to reduce that
+increases by about 6.7 MiB. We are actively investigating ways to reduce that
 footprint. (e.g.,
 [pruning `.so` files](https://github.com/sqlcipher/android-database-sqlcipher/issues/362)
 and [using ProGuard](https://github.com/sqlcipher/android-database-sqlcipher/pull/399)).
