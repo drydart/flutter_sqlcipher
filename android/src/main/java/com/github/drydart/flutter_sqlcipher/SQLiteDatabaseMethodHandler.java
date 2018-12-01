@@ -72,8 +72,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
             db.beginTransaction();
             break;
           case "immediate":
-            //db.beginTransactionNonExclusive(); // TODO: this is missing in SQLCipher 3.5.9
-            db.beginTransaction();
+            db.beginTransactionNonExclusive();
             break;
           default:
             assert(false); // unreachable
@@ -108,8 +107,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
       case "getAttachedDbs": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
-        //result.success(db.getAttachedDbs()); // TODO: this is missing in SQLCipher 3.5.9
-        result.notImplemented();
+        result.success(db.getAttachedDbs()); // FIXME
         break;
       }
 
@@ -145,8 +143,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
       case "isDatabaseIntegrityOk": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
-        //result.success(db.isDatabaseIntegrityOk()); // TODO: this is missing in SQLCipher 3.5.9
-        result.success(true);
+        result.success(db.isDatabaseIntegrityOk());
         break;
       }
 
@@ -170,8 +167,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
 
       case "isWriteAheadLoggingEnabled": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
-        //result.success(db.isWriteAheadLoggingEnabled()); // TODO: this is missing in SQLCipher 3.5.9
-        result.success(false);
+        result.success(db.isWriteAheadLoggingEnabled());
         break;
       }
 
@@ -247,7 +243,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
       case "validateSql": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");
-        //validateSql(sql); // TODO: this is missing in SQLCipher 3.5.9
+        //db.validateSql(sql); // TODO: this is missing in SQLCipher 4.0.0
         result.success(null);
         break;
       }
