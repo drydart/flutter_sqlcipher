@@ -7,7 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.2.0] - 2018-12-01
-### Added
+### Changed
+- Upgraded from SQLCipher 3.5.9 to
+  [4.0.0](https://www.zetetic.net/blog/2018/11/30/sqlcipher-400-release/)
 
 ## [0.1.6] - 2018-11-30
 ### Added
