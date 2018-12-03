@@ -342,7 +342,14 @@ abstract class SQLiteDatabase implements SQLiteClosable {
 
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replace(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replaceOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setForeignKeyConstraintsEnabled(boolean)
+
+  /// Sets whether foreign key constraints are enabled for the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setForeignKeyConstraintsEnabled(boolean)
+  Future<void> setForeignKeyConstraintsEnabled(final bool enable) {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'enable': enable};
+    return _channel.invokeMethod('setForeignKeyConstraintsEnabled', request);
+  }
 
   /// Sets the locale for this database.
   ///
