@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2018-12-03
+### Added
+
 ## [0.2.1] - 2018-12-03
 ### Added
 - `SQLiteDatabase#disableWriteAheadLogging()` method
@@ -86,6 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SQLiteDatabase#rawQuery()` method
 - `SQLiteDatabase#setLocale()` method
 
+[0.2.2]:  https://github.com/drydart/flutter_sqlcipher/compare/0.2.1...0.2.2
 [0.2.1]:  https://github.com/drydart/flutter_sqlcipher/compare/0.2.0...0.2.1
 [0.2.0]:  https://github.com/drydart/flutter_sqlcipher/compare/0.1.6...0.2.0
 [0.1.6]:  https://github.com/drydart/flutter_sqlcipher/compare/0.1.5...0.1.6
