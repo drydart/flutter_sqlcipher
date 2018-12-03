@@ -174,8 +174,25 @@ abstract class SQLiteDatabase implements SQLiteClosable {
 
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#compileStatement(java.lang.String)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#delete(java.lang.String,%20java.lang.String,%20java.lang.String[])
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#disableWriteAheadLogging()
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#enableWriteAheadLogging()
+
+  /// This method disables the features enabled by [enableWriteAheadLogging].
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#disableWriteAheadLogging()
+  Future<void> disableWriteAheadLogging() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('disableWriteAheadLogging', request);
+  }
+
+  /// This method enables parallel execution of queries from multiple threads on
+  /// the same database.
+  ///
+  /// Returns true if write-ahead logging is enabled.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#enableWriteAheadLogging()
+  Future<bool> enableWriteAheadLogging() {
+    final Map<String, dynamic> request = <String, dynamic>{'id': id};
+    return _channel.invokeMethod('enableWriteAheadLogging', request);
+  }
 
   /// Ends a transaction.
   ///

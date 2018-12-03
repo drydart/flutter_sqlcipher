@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2018-12-03
 ### Added
+- `SQLiteDatabase#disableWriteAheadLogging()` method
+- `SQLiteDatabase#enableWriteAheadLogging()` method
 
 ## [0.2.0] - 2018-12-01
 ### Changed

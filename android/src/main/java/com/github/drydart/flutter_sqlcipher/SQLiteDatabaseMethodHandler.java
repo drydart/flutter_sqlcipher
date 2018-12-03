@@ -89,6 +89,19 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "disableWriteAheadLogging": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        db.disableWriteAheadLogging();
+        result.success(null);
+        break;
+      }
+
+      case "enableWriteAheadLogging": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        result.success(db.enableWriteAheadLogging());
+        break;
+      }
+
       case "endTransaction": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         db.endTransaction();
