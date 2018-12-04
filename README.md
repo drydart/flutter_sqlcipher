@@ -21,6 +21,8 @@ Features
   [`android.database.sqlite`](https://developer.android.com/reference/android/database/sqlite/package-summary)
   API to aid Android developers migrating to Flutter.
 
+- Supports booleans, doubles, integers, strings, blobs, and timestamps.
+
 Compatibility
 -------------
 
