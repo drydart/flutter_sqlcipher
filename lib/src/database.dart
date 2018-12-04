@@ -294,8 +294,37 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     return _channel.invokeMethod('insert', request);
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertWithOnConflict(java.lang.String,%20java.lang.String,%20android.content.ContentValues,%20int)
+  /// Convenience method for inserting a row into the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  Future<int> insertOrThrow({
+    @required final String table,
+    @required final Map<String, dynamic> values,
+  }) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'table': table,
+      'values': values,
+    };
+    return _channel.invokeMethod('insertOrThrow', request);
+  }
+
+  /// General method for inserting a row into the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertWithOnConflict(java.lang.String,%20java.lang.String,%20android.content.ContentValues,%20int)
+  Future<int> insertWithOnConflict({
+    @required final String table,
+    @required final Map<String, dynamic> values,
+    @required final int conflictAlgorithm,
+  }) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'table': table,
+      'values': values,
+      'conflictAlgorithm': conflictAlgorithm,
+    };
+    return _channel.invokeMethod('insertWithOnConflict', request);
+  }
 
   /// Runs `PRAGMA integrity_check` on the given database (and all the attached
   /// databases).
