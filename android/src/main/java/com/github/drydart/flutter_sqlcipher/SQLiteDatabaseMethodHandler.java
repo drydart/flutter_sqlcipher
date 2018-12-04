@@ -2,7 +2,9 @@
 
 package com.github.drydart.flutter_sqlcipher;
 
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Parcel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -301,6 +303,17 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "update": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String table = getRequiredArgument(call, "table");
+        final Map<String, Object> values = getRequiredArgument(call, "values");
+        final String whereClause = getOptionalArgument(call, "whereClause");
+        final List<String> whereArgs = getOptionalArgument(call, "whereArgs");
+        result.success(db.update(table, convertMapToContentValues(values), whereClause,
+          (whereArgs != null) ? whereArgs.toArray(new String[0]) : null));
+        break;
+      }
+
       case "validateSql": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");
@@ -406,5 +419,15 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
     assert(name != null);
 
     return call.hasArgument(name) ? (T)call.argument(name) : defaultValue;
+  }
+
+  private static ContentValues
+  convertMapToContentValues(final Map<String, Object> input) {
+    assert(input != null);
+
+    final Parcel parcel = Parcel.obtain();
+    parcel.writeMap(input);
+    parcel.setDataPosition(0);
+    return ContentValues.CREATOR.createFromParcel(parcel);
   }
 }

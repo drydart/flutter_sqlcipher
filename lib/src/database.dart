@@ -468,7 +468,25 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     return _channel.invokeMethod('setVersion', request);
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#update(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[])
+  /// Convenience method for updating rows in the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#update(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[])
+  Future<int> update({
+    @required final String table,
+    @required final Map<String, dynamic> values,
+    final String where,
+    final List<String> whereArgs,
+  }) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'table': table,
+      'values': values,
+      'whereClause': where, // note the name mapping
+      'whereArgs': whereArgs,
+    };
+    return _channel.invokeMethod('update', request);
+  }
+
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#updateWithOnConflict(java.lang.String,%20android.content.ContentValues,%20java.lang.String,%20java.lang.String[],%20int)
 
   /// Verifies that a SQL `SELECT` statement is valid by compiling it.
