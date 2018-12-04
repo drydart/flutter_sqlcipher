@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `SQLiteDatabase#insertOrThrow()` method
 - `SQLiteDatabase#insertWithOnConflict()` method
+- `SQLiteDatabase#replaceOrThrow()` method
 
 ## [0.2.3] - 2018-12-04
 ### Added

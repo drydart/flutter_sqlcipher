@@ -280,6 +280,14 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "replaceOrThrow": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String table = getRequiredArgument(call, "table");
+        final Map<String, Object> values = getRequiredArgument(call, "values");
+        result.success(db.replaceOrThrow(table, null, convertMapToContentValues(values)));
+        break;
+      }
+
       case "setForeignKeyConstraintsEnabled": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final boolean enable = getRequiredArgument(call, "enable");

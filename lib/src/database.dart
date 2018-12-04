@@ -449,7 +449,22 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     return _channel.invokeMethod('replace', request);
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replaceOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  /// Convenience method for replacing a row in the database.
+  ///
+  /// Inserts a new row if a row does not already exist.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replaceOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  Future<int> replaceOrThrow({
+    @required final String table,
+    @required final Map<String, dynamic> values,
+  }) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'table': table,
+      'values': values,
+    };
+    return _channel.invokeMethod('replaceOrThrow', request);
+  }
 
   /// Sets whether foreign key constraints are enabled for the database.
   ///
