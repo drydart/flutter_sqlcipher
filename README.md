@@ -77,8 +77,9 @@ Two good reasons are:
 ### How much does using this plugin increase my final app size?
 
 Due to the bundled SQLCipher native libraries, your final APK size currently
-increases by about 6.7 MiB. We are actively investigating ways to reduce that
-footprint. (e.g.,
+increases by about 6.7 MiB. We are actively
+[investigating](https://github.com/drydart/flutter_sqlcipher/issues/2)
+ways to reduce that footprint. (e.g.,
 [pruning `.so` files](https://github.com/sqlcipher/android-database-sqlcipher/issues/362)
 and [using ProGuard](https://github.com/sqlcipher/android-database-sqlcipher/pull/399)).
 
@@ -94,7 +95,9 @@ Caveats
 -------
 
 - **At present, iOS is not supported.**
-  This may eventually be addressed going forward by bundling and wrapping
+  This may eventually be
+  [addressed](https://github.com/drydart/flutter_sqlcipher/issues/1)
+  going forward by bundling and wrapping
   [FMDB](https://github.com/ccgus/fmdb) which includes SQLCipher support.
 
 - **At present, cursors are fully materialized.**
