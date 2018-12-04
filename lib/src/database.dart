@@ -325,7 +325,39 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     return _channel.invokeMethod('needUpgrade', request) as Future<bool>;
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#query(boolean,%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
+  /// Query the given table, returning a [Cursor] over the result set.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#query(boolean,%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
+  Future<SQLiteCursor> query({
+    final bool distinct = false,
+    final String table,
+    final List<String> columns,
+    final String where,
+    final List<String> whereArgs,
+    final String groupBy,
+    final String having,
+    final String orderBy,
+    final Object limit,
+  }) async {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'distinct': distinct,
+      'table': table,
+      'columns': columns,
+      'selection': where,         // note the name mapping
+      'selectionArgs': whereArgs, // note the name mapping
+      'groupBy': groupBy,
+      'having': having,
+      'orderBy': orderBy,
+      'limit': limit.toString(),
+    };
+    final List<dynamic> result = await _channel.invokeMethod('query', request);
+    assert(result.length == 2);
+    final List<String> cursorColumns = (result[0] as List<dynamic>).cast<String>();
+    final List<List<dynamic>> cursorRows = (result[1] as List<dynamic>).cast<List<dynamic>>();
+    return SQLiteCursor.from(columns: cursorColumns, rows: cursorRows);
+  }
+
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#queryWithFactory(android.database.sqlite.SQLiteDatabase.CursorFactory,%20boolean,%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String,%20android.os.CancellationSignal)
 
   /// Runs the provided SQL and returns a cursor over the result set.
@@ -335,9 +367,9 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
     final List<dynamic> result = await _channel.invokeMethod('rawQuery', request);
     assert(result.length == 2);
-    final List<String> columns = (result[0] as List<dynamic>).cast<String>();
-    final List<List<dynamic>> rows = (result[1] as List<dynamic>).cast<List<dynamic>>();
-    return SQLiteCursor.from(columns: columns, rows: rows);
+    final List<String> cursorColumns = (result[0] as List<dynamic>).cast<String>();
+    final List<List<dynamic>> cursorRows = (result[1] as List<dynamic>).cast<List<dynamic>>();
+    return SQLiteCursor.from(columns: cursorColumns, rows: cursorRows);
   }
 
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#replace(java.lang.String,%20java.lang.String,%20android.content.ContentValues)

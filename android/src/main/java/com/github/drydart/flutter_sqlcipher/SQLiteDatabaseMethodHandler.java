@@ -191,6 +191,36 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "query": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final boolean distinct = getOptionalArgument(call, "distinct");
+        final String table = getOptionalArgument(call, "table");
+        final List<String> columns = getOptionalArgument(call, "columns");
+        final String selection = getOptionalArgument(call, "selection");
+        final List<String> selectionArgs = getOptionalArgument(call, "selectionArgs");
+        final String groupBy = getOptionalArgument(call, "groupBy");
+        final String having = getOptionalArgument(call, "having");
+        final String orderBy = getOptionalArgument(call, "orderBy");
+        final String limit = getOptionalArgument(call, "limit");
+        final Cursor cursor = db.query(distinct,
+          table,
+          (columns != null) ? columns.toArray(new String[0]) : null,
+          selection,
+          (selectionArgs != null) ? selectionArgs.toArray(new String[0]) : null,
+          groupBy,
+          having,
+          orderBy,
+          limit
+        );
+        try {
+          result.success(serializeCursor(cursor));
+        }
+        finally {
+          cursor.close();
+        }
+        break;
+      }
+
       case "rawQuery": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");
