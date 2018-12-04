@@ -279,7 +279,21 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     return _channel.invokeMethod('inTransaction', request) as Future<bool>;
   }
 
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insert(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  /// Convenience method for inserting a row into the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insert(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
+  Future<int> insert({
+    @required final String table,
+    @required final Map<String, dynamic> values,
+  }) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'table': table,
+      'values': values,
+    };
+    return _channel.invokeMethod('insert', request);
+  }
+
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertOrThrow(java.lang.String,%20java.lang.String,%20android.content.ContentValues)
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#insertWithOnConflict(java.lang.String,%20java.lang.String,%20android.content.ContentValues,%20int)
 

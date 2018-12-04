@@ -166,6 +166,14 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "insert": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String table = getRequiredArgument(call, "table");
+        final Map<String, Object> values = getRequiredArgument(call, "values");
+        result.success(db.insert(table, null, convertMapToContentValues(values));
+        break;
+      }
+
       case "isDatabaseIntegrityOk": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         result.success(db.isDatabaseIntegrityOk());
