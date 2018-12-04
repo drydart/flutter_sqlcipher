@@ -89,6 +89,16 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "delete": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String table = getRequiredArgument(call, "table");
+        final String whereClause = getOptionalArgument(call, "whereClause");
+        final List<String> whereArgs = getOptionalArgument(call, "whereArgs");
+        result.success(db.delete(table, whereClause,
+          (whereArgs != null) ? whereArgs.toArray(new String[0]) : null));
+        break;
+      }
+
       case "disableWriteAheadLogging": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         db.disableWriteAheadLogging();
@@ -194,7 +204,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
       case "query": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final boolean distinct = getOptionalArgument(call, "distinct");
-        final String table = getOptionalArgument(call, "table");
+        final String table = getRequiredArgument(call, "table");
         final List<String> columns = getOptionalArgument(call, "columns");
         final String selection = getOptionalArgument(call, "selection");
         final List<String> selectionArgs = getOptionalArgument(call, "selectionArgs");

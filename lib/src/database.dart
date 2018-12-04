@@ -4,6 +4,7 @@ import 'dart:async' show Future;
 import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show MethodChannel, PlatformException;
+import 'package:meta/meta.dart' show required;
 
 import 'closable.dart' show SQLiteClosable;
 import 'cursor.dart' show SQLiteCursor;
@@ -173,7 +174,23 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   }
 
   // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#compileStatement(java.lang.String)
-  // TODO: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#delete(java.lang.String,%20java.lang.String,%20java.lang.String[])
+
+  /// Convenience method for deleting rows in the database.
+  ///
+  /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#delete(java.lang.String,%20java.lang.String,%20java.lang.String[])
+  Future<int> delete({
+    @required final String table,
+    final String where,
+    final List<String> whereArgs,
+  }) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'table': table,
+      'whereClause': where, // note the name mapping
+      'whereArgs': whereArgs,
+    };
+    return _channel.invokeMethod('delete', request);
+  }
 
   /// This method disables the features enabled by [enableWriteAheadLogging].
   ///
@@ -330,7 +347,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#query(boolean,%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String[],%20java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
   Future<SQLiteCursor> query({
     final bool distinct = false,
-    final String table,
+    @required final String table,
     final List<String> columns,
     final String where,
     final List<String> whereArgs,

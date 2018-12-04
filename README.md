@@ -128,6 +128,7 @@ Reference
 - [`SQLiteDatabase#beginTransaction()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/beginTransaction.html)
 - [`SQLiteDatabase#beginTransactionNonExclusive()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/beginTransactionNonExclusive.html)
 - [`SQLiteDatabase#close()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/close.html)
+- [`SQLiteDatabase#delete()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/delete.html)
 - [`SQLiteDatabase#disableWriteAheadLogging()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/disableWriteAheadLogging.html)
 - [`SQLiteDatabase#enableWriteAheadLogging()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/enableWriteAheadLogging.html)
 - [`SQLiteDatabase#endTransaction()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/endTransaction.html)
