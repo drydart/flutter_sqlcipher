@@ -355,6 +355,18 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         break;
       }
 
+      case "updateWithOnConflict": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String table = getRequiredArgument(call, "table");
+        final Map<String, Object> values = getRequiredArgument(call, "values");
+        final String whereClause = getOptionalArgument(call, "whereClause");
+        final List<String> whereArgs = getOptionalArgument(call, "whereArgs");
+        final int conflictAlgorithm = getRequiredArgument(call, "conflictAlgorithm");
+        result.success(db.updateWithOnConflict(table, convertMapToContentValues(values), whereClause,
+          (whereArgs != null) ? whereArgs.toArray(new String[0]) : null, conflictAlgorithm));
+        break;
+      }
+
       case "validateSql": {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String sql = getRequiredArgument(call, "sql");
