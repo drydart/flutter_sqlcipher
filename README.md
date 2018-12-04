@@ -147,6 +147,7 @@ Reference
 - [`SQLiteDatabase#needUpgrade()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/needUpgrade.html)
 - [`SQLiteDatabase#query()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/query.html)
 - [`SQLiteDatabase#rawQuery()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/rawQuery.html)
+- [`SQLiteDatabase#replace()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/replace.html)
 - [`SQLiteDatabase#setForeignKeyConstraintsEnabled()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setForeignKeyConstraintsEnabled.html)
 - [`SQLiteDatabase#setLocale()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setLocale.html)
 - [`SQLiteDatabase#setMaxSqlCacheSize()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/setMaxSqlCacheSize.html)

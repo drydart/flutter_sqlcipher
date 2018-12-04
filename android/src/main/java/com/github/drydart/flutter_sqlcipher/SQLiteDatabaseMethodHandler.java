@@ -170,7 +170,7 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         final SQLiteDatabase db = this.getDatabaseArgument(call);
         final String table = getRequiredArgument(call, "table");
         final Map<String, Object> values = getRequiredArgument(call, "values");
-        result.success(db.insert(table, null, convertMapToContentValues(values));
+        result.success(db.insert(table, null, convertMapToContentValues(values)));
         break;
       }
 
@@ -252,6 +252,14 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
         finally {
           cursor.close();
         }
+        break;
+      }
+
+      case "replace": {
+        final SQLiteDatabase db = this.getDatabaseArgument(call);
+        final String table = getRequiredArgument(call, "table");
+        final Map<String, Object> values = getRequiredArgument(call, "values");
+        result.success(db.replace(table, null, convertMapToContentValues(values)));
         break;
       }
 
