@@ -16,7 +16,7 @@ import 'package:flutter_sqlcipher_example/main.dart';
 void main() {
   testWidgets("Verify SQLCipher version", (final WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(App());
 
     // Verify that platform version is retrieved.
     expect(
