@@ -48,6 +48,10 @@ var cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c");
 await DatabaseUtils.dumpCursor(cursor);
 ```
 
+### Using a bundled database from the app's assets
+
+TODO
+
 Frequently Asked Questions
 --------------------------
 
@@ -85,7 +89,7 @@ ways to reduce that footprint. (e.g.,
 [pruning `.so` files](https://github.com/sqlcipher/android-database-sqlcipher/issues/362)
 and [using ProGuard](https://github.com/sqlcipher/android-database-sqlcipher/pull/399)).
 
-### Some of the `android.database.sqlite` API methods are missing?
+### Why are some of the `android.database.sqlite` API methods missing?
 
 We don't generally implement methods deprecated in the current Android API
 level. For example, the
@@ -111,6 +115,12 @@ Caveats
 
 Reference
 ---------
+
+### [`sqlcipher`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/sqlcipher-library.html)
+
+    import 'package:flutter_sqlcipher/sqlcipher.dart';
+
+- [`SQLCipher.version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/SQLCipher/version.html)
 
 ### [`sqlite`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/sqlite-library.html)
 
@@ -168,11 +178,21 @@ Reference
 - [`SQLiteDatabase#validateSql()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/validateSql.html)
 - [`SQLiteDatabase#yieldIfContendedSafely()`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlite/SQLiteDatabase/yieldIfContendedSafely.html)
 
-### [`sqlcipher`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/sqlcipher-library.html)
+Cross-Reference
+---------------
 
-    import 'package:flutter_sqlcipher/sqlcipher.dart';
+### Datatype Mappings
 
-- [`SQLCipher.version`](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/sqlcipher/SQLCipher/version.html)
+| Dart Class | Dart API | SQLite Storage Class | Notes |
+| :--- | :--- | :--- | :--- |
+| `null` | `SQLiteCursor#isNull()` | `NULL` | - |
+| `bool` | `SQLiteCursor#getBool()` | `INTEGER` | `0`, `1` |
+| `int` | `SQLiteCursor#getInt()` | `INTEGER` | - |
+| `double` | `SQLiteCursor#getDouble()` | `REAL` | - |
+| `String` | `SQLiteCursor#getString()` | `TEXT` | - |
+| `ByteBuffer` | `SQLiteCursor#getBlob()` | `BLOB` | - |
+| `DateTime` | `SQLiteCursor#getDateTime()` | `TEXT` | ISO-8601 `"YYYY-MM-DD HH:MM:SS.SSS"` |
+| `DateTime` | `SQLiteCursor#getDateTime()` | `INTEGER` | Seconds since `1970-01-01T00:00:00Z` |
 
 See Also
 --------
