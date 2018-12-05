@@ -190,7 +190,7 @@ Cross-Reference
 | `int` | `SQLiteCursor#getInt()` | `INTEGER` | - |
 | `double` | `SQLiteCursor#getDouble()` | `REAL` | - |
 | `String` | `SQLiteCursor#getString()` | `TEXT` | - |
-| `ByteBuffer` | `SQLiteCursor#getBlob()` | `BLOB` | - |
+| `Uint8List` | `SQLiteCursor#getBlob()` | `BLOB` | - |
 | `DateTime` | `SQLiteCursor#getDateTime()` | `TEXT` | ISO-8601 `"YYYY-MM-DD HH:MM:SS.SSS"` |
 | `DateTime` | `SQLiteCursor#getDateTime()` | `INTEGER` | Seconds since `1970-01-01T00:00:00Z` |
 
