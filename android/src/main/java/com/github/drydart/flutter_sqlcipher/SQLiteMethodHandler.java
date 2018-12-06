@@ -31,9 +31,19 @@ class SQLiteMethodHandler implements MethodCallHandler {
 
       case "getVersion": {
         final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", (String)null, null);
-        final Cursor cursor = db.rawQuery("SELECT sqlite_version()", null);
-        cursor.moveToNext();
-        result.success(cursor.getString(0));
+        try {
+          final Cursor cursor = db.rawQuery("SELECT sqlite_version()", null);
+          try {
+            cursor.moveToNext();
+            result.success(cursor.getString(0));
+          }
+          finally {
+            cursor.close();
+          }
+        }
+        finally {
+          db.close();
+        }
         break;
       }
 
