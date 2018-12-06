@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.1] - 2018-12-06
 ### Added
+### Changed
+- Fixed `Future<dynamic>` cast errors in several methods
 
 ## [0.3.0] - 2018-12-05
 ### Changed

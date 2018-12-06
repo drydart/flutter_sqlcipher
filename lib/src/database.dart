@@ -89,9 +89,9 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// that may have been created by the database engine.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#deleteDatabase(java.io.File)
-  static Future<bool> deleteDatabase(final String path) {
+  static Future<bool> deleteDatabase(final String path) async {
     final Map<String, dynamic> request = <String, dynamic>{'path': path};
-    return _channel.invokeMethod('deleteDatabase', request) as Future<bool>;
+    return await _channel.invokeMethod('deleteDatabase', request);
   }
 
   /// Open the database according to the specified parameters.
@@ -121,8 +121,8 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Typically this memory will come from the page cache.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#releaseMemory()
-  static Future<int> releaseMemory() {
-    return _channel.invokeMethod('releaseMemory') as Future<int>;
+  static Future<int> releaseMemory() async {
+    return await _channel.invokeMethod('releaseMemory');
   }
 
   /// The internal database identifier.
@@ -182,14 +182,14 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     @required final String table,
     final String where,
     final List<String> whereArgs,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
       'whereClause': where, // note the name mapping
       'whereArgs': whereArgs,
     };
-    return _channel.invokeMethod('delete', request);
+    return await _channel.invokeMethod('delete', request);
   }
 
   /// This method disables the features enabled by [enableWriteAheadLogging].
@@ -206,9 +206,9 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Returns true if write-ahead logging is enabled.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#enableWriteAheadLogging()
-  Future<bool> enableWriteAheadLogging() {
+  Future<bool> enableWriteAheadLogging() async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('enableWriteAheadLogging', request);
+    return await _channel.invokeMethod('enableWriteAheadLogging', request);
   }
 
   /// Ends a transaction.
@@ -234,49 +234,49 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// main database by executing `PRAGMA database_list` on the database.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getAttachedDbs()
-  Future<Map<String, String>> getAttachedDbs() {
+  Future<Map<String, String>> getAttachedDbs() async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getAttachedDbs', request);
+    return await _channel.invokeMethod('getAttachedDbs', request);
   }
 
   /// Returns the maximum size, in bytes, that the database may grow to.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getMaximumSize()
-  Future<int> getMaximumSize() {
+  Future<int> getMaximumSize() async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getMaximumSize', request) as Future<int>;
+    return await _channel.invokeMethod('getMaximumSize', request);
   }
 
   /// Returns the current database page size, in bytes.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getPageSize()
-  Future<int> getPageSize() {
+  Future<int> getPageSize() async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getPageSize', request) as Future<int>;
+    return await _channel.invokeMethod('getPageSize', request);
   }
 
   /// Gets the path to the database file.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getPath()
-  Future<String> getPath() {
+  Future<String> getPath() async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getPath', request) as Future<String>;
+    return await _channel.invokeMethod('getPath', request);
   }
 
   /// Gets the database version.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#getVersion()
-  Future<int> getVersion() {
+  Future<int> getVersion() async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('getVersion', request) as Future<int>;
+    return await _channel.invokeMethod('getVersion', request);
   }
 
   /// Returns true if the current thread has a transaction pending.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#inTransaction()
-  Future<bool> get inTransaction {
+  Future<bool> get inTransaction async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('inTransaction', request) as Future<bool>;
+    return await _channel.invokeMethod('inTransaction', request);
   }
 
   /// Convenience method for inserting a row into the database.
@@ -285,13 +285,13 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   Future<int> insert({
     @required final String table,
     @required final Map<String, dynamic> values,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
       'values': values,
     };
-    return _channel.invokeMethod('insert', request);
+    return await _channel.invokeMethod('insert', request);
   }
 
   /// Convenience method for inserting a row into the database.
@@ -316,14 +316,14 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     @required final String table,
     @required final Map<String, dynamic> values,
     @required final int conflictAlgorithm,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
       'values': values,
       'conflictAlgorithm': conflictAlgorithm,
     };
-    return _channel.invokeMethod('insertWithOnConflict', request);
+    return await _channel.invokeMethod('insertWithOnConflict', request);
   }
 
   /// Runs `PRAGMA integrity_check` on the given database (and all the attached
@@ -338,51 +338,51 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Note that `PRAGMA integrity_check` on a database can take a long time.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDatabaseIntegrityOk()
-  Future<bool> get isDatabaseIntegrityOk {
+  Future<bool> get isDatabaseIntegrityOk async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isDatabaseIntegrityOk', request) as Future<bool>;
+    return await _channel.invokeMethod('isDatabaseIntegrityOk', request);
   }
 
   /// Returns true if the current thread is holding an active connection to the
   /// database.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isDbLockedByCurrentThread()
-  Future<bool> get isDbLockedByCurrentThread {
+  Future<bool> get isDbLockedByCurrentThread async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isDbLockedByCurrentThread', request) as Future<bool>;
+    return await _channel.invokeMethod('isDbLockedByCurrentThread', request);
   }
 
   /// Returns true if the database is currently open.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isOpen()
-  Future<bool> get isOpen {
+  Future<bool> get isOpen async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isOpen', request) as Future<bool>;
+    return await _channel.invokeMethod('isOpen', request);
   }
 
   /// Returns true if the database is opened as read only.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isReadOnly()
-  Future<bool> get isReadOnly {
+  Future<bool> get isReadOnly async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isReadOnly', request) as Future<bool>;
+    return await _channel.invokeMethod('isReadOnly', request);
   }
 
   /// Returns true if write-ahead logging has been enabled for this database.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#isWriteAheadLoggingEnabled()
-  Future<bool> get isWriteAheadLoggingEnabled {
+  Future<bool> get isWriteAheadLoggingEnabled async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id};
-    return _channel.invokeMethod('isWriteAheadLoggingEnabled', request) as Future<bool>;
+    return await _channel.invokeMethod('isWriteAheadLoggingEnabled', request);
   }
 
   /// Returns true if the new version code is greater than the current database
   /// version.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#needUpgrade(int)
-  Future<bool> needUpgrade(final int newVersion) {
+  Future<bool> needUpgrade(final int newVersion) async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'newVersion': newVersion};
-    return _channel.invokeMethod('needUpgrade', request) as Future<bool>;
+    return await _channel.invokeMethod('needUpgrade', request);
   }
 
   /// Query the given table, returning a [Cursor] over the result set.
@@ -440,13 +440,13 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   Future<int> replace({
     @required final String table,
     @required final Map<String, dynamic> values,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
       'values': values,
     };
-    return _channel.invokeMethod('replace', request);
+    return await _channel.invokeMethod('replace', request);
   }
 
   /// Convenience method for replacing a row in the database.
@@ -606,9 +606,9 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// started the transaction immediately.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#yieldIfContendedSafely()
-  Future<bool> yieldIfContendedSafely([final int sleepAfterYieldDelay = 0]) {
+  Future<bool> yieldIfContendedSafely([final int sleepAfterYieldDelay = 0]) async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sleepAfterYieldDelay': sleepAfterYieldDelay};
-    return _channel.invokeMethod('yieldIfContendedSafely', request) as Future<bool>;
+    return await _channel.invokeMethod('yieldIfContendedSafely', request);
   }
 }
 
