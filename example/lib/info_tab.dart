@@ -8,6 +8,17 @@ import 'package:flutter_sqlcipher/sqlite.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
 
+class Info {
+  String sqlcipherVersion;
+  String sqliteVersion;
+  int pageSize;
+  int maximumSize;
+
+  Info({this.sqlcipherVersion, this.sqliteVersion, this.pageSize, this.maximumSize});
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 class InfoTab extends StatefulWidget {
   @override
   State<InfoTab> createState() => _InfoState();
@@ -16,8 +27,7 @@ class InfoTab extends StatefulWidget {
 ////////////////////////////////////////////////////////////////////////////////
 
 class _InfoState extends State<InfoTab> {
-  String _sqlcipherVersion = "Unknown";
-  String _sqliteVersion = "Unknown";
+  Info _info = Info();
 
   @override
   void initState() {
@@ -27,28 +37,62 @@ class _InfoState extends State<InfoTab> {
 
   @override
   Widget build(final BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("SQLCipher $_sqlcipherVersion\n"),
-          Text("SQLite $_sqliteVersion\n"),
-        ],
-      ),
+    return ListView.separated(
+      padding: EdgeInsets.all(8.0),
+      itemCount: 4,
+      itemBuilder: (final BuildContext context, final int index) {
+        switch (index) {
+          case 0:
+            return ListTile(
+              leading: Icon(Icons.new_releases),
+              title: Text("SQLCipher"),
+              subtitle: Text(_info.sqlcipherVersion ?? "Unknown"),
+              //trailing: Icon(Icons.info, color: Theme.of(context).disabledColor),
+            );
+          case 1:
+            return ListTile(
+              leading: Icon(Icons.new_releases),
+              title: Text("SQLite"),
+              subtitle: Text(_info.sqliteVersion ?? "Unknown"),
+            );
+          case 2:
+            return ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text("Page size"),
+              subtitle: Text(_info.pageSize != null ? _info.pageSize.toString() : "Unknown"), // TODO: format the number
+            );
+          case 3:
+            return ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text("Maximum size"),
+              subtitle: Text(_info.maximumSize != null ? _info.maximumSize.toString() : "Unknown"), // TODO: format the number
+            );
+          default:
+            assert(false); // unreachable
+            return null;
+        }
+      },
+      separatorBuilder: (final BuildContext context, final int index) {
+        return Divider();
+      },
     );
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _initPlatformState() async {
-    String sqlcipherVersion, sqliteVersion;
+    Info info = Info();
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      sqlcipherVersion = await SQLCipher.version;
-      sqliteVersion = await SQLite.version;
+      info.sqlcipherVersion = await SQLCipher.version;
+      info.sqliteVersion = await SQLite.version;
+      final SQLiteDatabase db = await SQLiteDatabase.createInMemory();
+      info.pageSize = await db.getPageSize();
+      info.maximumSize = await db.getMaximumSize();
     }
     on PlatformException {
-      sqlcipherVersion = "Failed to get SQLCipher library version.";
-      sqliteVersion = "Failed to get SQLite library version.";
+      // TODO: improve error handling
+      info.sqlcipherVersion = "Failed to get SQLCipher library version.";
+      info.sqliteVersion = "Failed to get SQLite library version.";
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -56,9 +100,6 @@ class _InfoState extends State<InfoTab> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {
-      _sqlcipherVersion = sqlcipherVersion;
-      _sqliteVersion = sqliteVersion;
-    });
+    setState(() { _info = info; });
   }
 }
