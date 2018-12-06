@@ -2,7 +2,6 @@
 
 Demonstrates how to use the flutter_sqlcipher plugin.
 
-## Getting Started
+## Screenshot
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+![Screenshot](https://raw.githubusercontent.com/drydart/flutter_sqlcipher/master/example/screenshot.png)
