@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'info_tab.dart';
 import 'query_tab.dart';
+import 'schema_tab.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -22,6 +23,7 @@ class _MainState extends State<MainScreen> {
     : _tabs = [
         InfoTab(),
         QueryTab(),
+        SchemaTab(),
       ],
       super();
 
@@ -47,8 +49,12 @@ class _MainState extends State<MainScreen> {
             title: Text("Info"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.query_builder),
+            icon: Icon(Icons.search),
             title: Text("Query"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text("Schema"),
           ),
         ],
       ),

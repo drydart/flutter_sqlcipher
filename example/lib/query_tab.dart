@@ -42,8 +42,18 @@ class _QueryState extends State<QueryTab> {
     String result;
     try {
       final SQLiteDatabase db = await SQLiteDatabase.createInMemory();
-      final SQLiteCursor cursor = await db.rawQuery(_query, ['11', '22', '33']);
-      result = await DatabaseUtils.dumpCursorToString(cursor);
+      try {
+        final SQLiteCursor cursor = await db.rawQuery(_query, ['11', '22', '33']);
+        try {
+          result = await DatabaseUtils.dumpCursorToString(cursor);
+        }
+        finally {
+          cursor.close();
+        }
+      }
+      finally {
+        db.close();
+      }
     }
     on PlatformException {
       result = "Failed to dump cursor.";
