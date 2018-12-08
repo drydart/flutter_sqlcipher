@@ -15,13 +15,16 @@ of database files.
 Features
 --------
 
-- Implements fully-encrypted SQLite databases stored on disk or in memory.
+- Implements [fully-encrypted](https://www.zetetic.net/sqlcipher/design/)
+  SQLite databases stored on disk or in memory.
+
+- Supports booleans, doubles, integers, strings, blobs, and timestamps.
 
 - Provides a high-fidelity subset of the
   [`android.database.sqlite`](https://developer.android.com/reference/android/database/sqlite/package-summary)
   API to aid Android developers migrating to Flutter.
 
-- Supports booleans, doubles, integers, strings, blobs, and timestamps.
+- Facilitates porting existing Android database code to Flutter.
 
 Compatibility
 -------------
@@ -46,6 +49,14 @@ var db = await SQLiteDatabase.createInMemory();
 var cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c");
 
 await DatabaseUtils.dumpCursor(cursor);
+```
+
+### Iterating the rows in a returned cursor
+
+```dart
+for (var row in await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c")) {
+  print(row); // prints: {a: 1, b: 2, c: 3}
+}
 ```
 
 ### Using a bundled database from the app's assets
