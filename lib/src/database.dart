@@ -225,7 +225,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// It has no means to return any data (such as the number of affected rows).
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#execSQL(java.lang.String)
-  Future<void> execSQL(final String sql, [final List<dynamic> args]) {
+  Future<void> execSQL(final String sql, [final List<dynamic> args = const []]) {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
     return _channel.invokeMethod('execSQL', request);
   }
@@ -423,7 +423,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
-  Future<SQLiteCursor> rawQuery(final String sql, [final List<String> args]) async {
+  Future<SQLiteCursor> rawQuery(final String sql, [final List<String> args = const <String>[]]) async {
     final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
     final List<dynamic> result = await _channel.invokeMethod('rawQuery', request);
     assert(result.length == 2);
