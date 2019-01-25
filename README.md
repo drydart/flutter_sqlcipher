@@ -50,7 +50,7 @@ CREATE TABLE links (
 """);
 ```
 
-### Executing a `INSERT` statement
+### Executing an `INSERT` statement
 
 ```dart
 // Insert a new link into the table:
