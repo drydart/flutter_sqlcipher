@@ -300,13 +300,13 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   Future<int> insertOrThrow({
     @required final String table,
     @required final Map<String, dynamic> values,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
       'values': values,
     };
-    return _channel.invokeMethod('insertOrThrow', request);
+    return await _channel.invokeMethod('insertOrThrow', request);
   }
 
   /// General method for inserting a row into the database.
@@ -457,13 +457,13 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   Future<int> replaceOrThrow({
     @required final String table,
     @required final Map<String, dynamic> values,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
       'values': values,
     };
-    return _channel.invokeMethod('replaceOrThrow', request);
+    return await _channel.invokeMethod('replaceOrThrow', request);
   }
 
   /// Sets whether foreign key constraints are enabled for the database.
@@ -550,7 +550,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     @required final Map<String, dynamic> values,
     final String where,
     final List<String> whereArgs,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
@@ -558,7 +558,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
       'whereClause': where, // note the name mapping
       'whereArgs': whereArgs,
     };
-    return _channel.invokeMethod('update', request);
+    return await _channel.invokeMethod('update', request);
   }
 
   /// Convenience method for updating rows in the database.
@@ -570,7 +570,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     final String where,
     final List<String> whereArgs,
     @required final int conflictAlgorithm,
-  }) {
+  }) async {
     final Map<String, dynamic> request = <String, dynamic>{
       'id': id,
       'table': table,
@@ -579,7 +579,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
       'whereArgs': whereArgs,
       'conflictAlgorithm': conflictAlgorithm,
     };
-    return _channel.invokeMethod('updateWithOnConflict', request);
+    return await _channel.invokeMethod('updateWithOnConflict', request);
   }
 
   /// Verifies that a SQL `SELECT` statement is valid by compiling it.
