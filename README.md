@@ -34,24 +34,64 @@ Android only, at present. (iOS support is planned.)
 Examples
 --------
 
-### Querying an in-memory database
-
-This example also uses
-[`DatabaseUtils`](https://pub.dartlang.org/documentation/flutter_android/latest/android_database/DatabaseUtils-class.html)
-from the [flutter_android](https://pub.dartlang.org/packages/flutter_android) package.
+### Executing an arbitrary SQL statement
 
 ```dart
-import 'package:flutter_sqlcipher/sqlite.dart';
-import 'package:flutter_android/android_database.dart' show DatabaseUtils;
+await db.execSQL("DROP TABLE IF EXISTS links");
 
-var db = await SQLiteDatabase.createInMemory();
-
-var cursor = await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c");
-
-await DatabaseUtils.dumpCursor(cursor);
+// Create a bookmark links table:
+await db.execSQL("""
+CREATE TABLE links (
+  id INTEGER PRIMARY KEY NOT NULL,
+  url TEXT NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NULL
+)
+""");
 ```
 
-### Iterating the rows in a returned cursor
+### Executing a `INSERT` statement
+
+```dart
+// Insert a new link into the table:
+var linkID = db.insert(
+  table: "links",
+  values: <String, dynamic>{
+    "id": null, // auto-incremented ID assigned automatically
+    "url": "http://example.org/",
+    "created_at": DateTime.now().toUtc().millisecondsSinceEpoch ~/ 1000,
+    "updated_at": null,
+  },
+);
+```
+
+### Executing an `UPDATE` statement
+
+```dart
+// Change the previously-inserted link from HTTP to HTTPS:
+db.update(
+  table: "links",
+  values: <String, dynamic>{
+    "url": "https://example.org/",
+    "updated_at": DateTime.now().toUtc().millisecondsSinceEpoch ~/ 1000,
+  },
+  where: "id = ?",
+  whereArgs: <String>[linkID.toString()],
+);
+```
+
+### Executing a `DELETE` statement
+
+```dart
+// Delete the previously-inserted link:
+db.delete(
+  table: "links",
+  where: "id = ?",
+  whereArgs: <String>[linkID.toString()],
+);
+```
+
+### Executing an arbitrary SQL query
 
 ```dart
 for (var row in await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c")) {
@@ -59,9 +99,36 @@ for (var row in await db.rawQuery("SELECT 1 AS a, 2 as b, 3 AS c")) {
 }
 ```
 
+### Creating an in-memory database
+
+```dart
+import 'package:flutter_sqlcipher/sqlite.dart';
+
+var db = await SQLiteDatabase.createInMemory();
+```
+
+### Creating an on-disk database
+
+This example also uses
+[`Context`](https://pub.dartlang.org/documentation/flutter_android/latest/android_content/Context-class.html)
+from the [flutter_android](https://pub.dartlang.org/packages/flutter_android) package
+to obtain the app's cache directory path.
+
+```dart
+import 'package:flutter_sqlcipher/sqlite.dart';
+import 'package:flutter_android/android_content.dart' show Context;
+
+var cacheDir = await Context.cacheDir;
+await cacheDir.create(recursive: true);
+
+var cacheFile = File("${cacheDir.path}/cache.db");
+
+var db = await SQLiteDatabase.openOrCreateDatabase(cacheFile.path);
+```
+
 ### Using a bundled database from the app's assets
 
-TODO
+(To be added.)
 
 Frequently Asked Questions
 --------------------------

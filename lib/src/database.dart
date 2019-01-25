@@ -558,7 +558,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
       'whereClause': where, // note the name mapping
       'whereArgs': whereArgs,
     };
-    return await _channel.invokeMethod('update', request);
+    return (await _channel.invokeMethod('update', request)) as int;
   }
 
   /// Convenience method for updating rows in the database.
