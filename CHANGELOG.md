@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.0] - 2019-02-14
 ### Changed
-- Require Dart SDK 2.1+
+- Required Dart SDK 2.1+
+- Required flutter_android 0.3.0+
 
 ## [0.3.5] - 2019-01-26
 ### Changed
