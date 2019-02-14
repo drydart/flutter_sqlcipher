@@ -10,13 +10,11 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 import net.sqlcipher.database.SQLiteDatabase;
 
 /** SQLiteMethodHandler */
-class SQLiteMethodHandler implements MethodCallHandler {
+class SQLiteMethodHandler extends FlutterMethodCallHandler {
   static final String CHANNEL = "flutter_sqlcipher/SQLite";
 
-  final Registrar registrar;
-
   SQLiteMethodHandler(final Registrar registrar) {
-    this.registrar = registrar;
+    super(registrar);
   }
 
   @Override

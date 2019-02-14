@@ -20,15 +20,14 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 /** SQLiteDatabaseMethodHandler */
 @SuppressWarnings("unchecked")
-class SQLiteDatabaseMethodHandler implements MethodCallHandler {
+class SQLiteDatabaseMethodHandler extends FlutterMethodCallHandler {
   static final String CHANNEL = "flutter_sqlcipher/SQLiteDatabase";
 
-  final Registrar registrar;
   final Map<Integer, SQLiteDatabase> databases = new HashMap<>();
   int databaseID;
 
   SQLiteDatabaseMethodHandler(final Registrar registrar) {
-    this.registrar = registrar;
+    super(registrar);
   }
 
   @Override
@@ -440,38 +439,6 @@ class SQLiteDatabaseMethodHandler implements MethodCallHandler {
       throw new AssertionError();
     }
     return this.databases.get(id);
-  }
-
-  private static <T> T
-  getRequiredArgument(final MethodCall call,
-                      final String name) {
-    assert(call != null);
-    assert(name != null);
-
-    if (!call.hasArgument(name)) {
-      throw new AssertionError();
-    }
-    final T arg = call.argument(name);
-    if (arg == null) {
-      throw new AssertionError();
-    }
-    return arg;
-  }
-
-  private static <T> T
-  getOptionalArgument(final MethodCall call,
-                      final String name) {
-    return getOptionalArgument(call, name, (T)null);
-  }
-
-  private static <T> T
-  getOptionalArgument(final MethodCall call,
-                      final String name,
-                      final T defaultValue) {
-    assert(call != null);
-    assert(name != null);
-
-    return call.hasArgument(name) ? (T)call.argument(name) : defaultValue;
   }
 
   private static ContentValues
