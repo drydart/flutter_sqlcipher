@@ -13,7 +13,8 @@ import 'package:flutter/services.dart' show MethodChannel;
 
 /// SQLCipher interface.
 abstract class SQLCipher {
-  static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLCipher');
+  static const MethodChannel _channel =
+      MethodChannel('flutter_sqlcipher/SQLCipher');
 
   /// Executes `PRAGMA cipher_version`.
   static Future<String> get version async {

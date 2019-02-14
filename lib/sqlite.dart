@@ -19,7 +19,8 @@ export 'src/statement.dart' show SQLiteStatement;
 
 /// SQLite interface.
 abstract class SQLite {
-  static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLite');
+  static const MethodChannel _channel =
+      MethodChannel('flutter_sqlcipher/SQLite');
 
   /// Executes `SELECT sqlite_version()`.
   static Future<String> get version async {

@@ -10,4 +10,3 @@ import 'program.dart' show SQLiteProgram;
 abstract class SQLiteQuery extends SQLiteProgram {
   // TODO
 }
-

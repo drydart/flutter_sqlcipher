@@ -22,7 +22,8 @@ import 'cursor.dart' show SQLiteCursor;
 ///
 /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase
 abstract class SQLiteDatabase implements SQLiteClosable {
-  static const MethodChannel _channel = MethodChannel('flutter_sqlcipher/SQLiteDatabase');
+  static const MethodChannel _channel =
+      MethodChannel('flutter_sqlcipher/SQLiteDatabase');
 
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#CONFLICT_ABORT
   static const int CONFLICT_ABORT = 2;
@@ -97,13 +98,17 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Open the database according to the specified parameters.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#openDatabase(java.lang.String,%20android.database.sqlite.SQLiteDatabase.CursorFactory,%20int)
-  static Future<SQLiteDatabase> openDatabase(final String path, {String password, int flags = OPEN_READWRITE}) async {
+  static Future<SQLiteDatabase> openDatabase(final String path,
+      {String password, int flags = OPEN_READWRITE}) async {
     try {
-      final Map<String, dynamic> request = <String, dynamic>{'path': path, 'password': password, 'flags': flags};
+      final Map<String, dynamic> request = <String, dynamic>{
+        'path': path,
+        'password': password,
+        'flags': flags
+      };
       final int id = await _channel.invokeMethod('openDatabase', request);
       return _SQLiteDatabase(id);
-    }
-    on PlatformException catch (error) {
+    } on PlatformException catch (error) {
       throw error; // TODO: improve error handling
     }
   }
@@ -111,7 +116,8 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Equivalent to `openDatabase(path, flags: CREATE_IF_NECESSARY)`.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#openOrCreateDatabase(java.io.File,%20android.database.sqlite.SQLiteDatabase.CursorFactory)
-  static Future<SQLiteDatabase> openOrCreateDatabase(final String path, {String password}) {
+  static Future<SQLiteDatabase> openOrCreateDatabase(final String path,
+      {String password}) {
     return openDatabase(path, password: password, flags: CREATE_IF_NECESSARY);
   }
 
@@ -152,7 +158,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransaction()
   Future<void> beginTransaction() {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'mode': 'exclusive'};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'mode': 'exclusive'
+    };
     return _channel.invokeMethod('beginTransaction', request);
   }
 
@@ -160,7 +169,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#beginTransactionNonExclusive()
   Future<void> beginTransactionNonExclusive() {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'mode': 'immediate'};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'mode': 'immediate'
+    };
     return _channel.invokeMethod('beginTransaction', request);
   }
 
@@ -225,8 +237,13 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// It has no means to return any data (such as the number of affected rows).
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#execSQL(java.lang.String)
-  Future<void> execSQL(final String sql, [final List<dynamic> args = const []]) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
+  Future<void> execSQL(final String sql,
+      [final List<dynamic> args = const []]) {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'sql': sql,
+      'args': args
+    };
     return _channel.invokeMethod('execSQL', request);
   }
 
@@ -381,7 +398,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#needUpgrade(int)
   Future<bool> needUpgrade(final int newVersion) async {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'newVersion': newVersion};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'newVersion': newVersion
+    };
     return await _channel.invokeMethod('needUpgrade', request);
   }
 
@@ -404,7 +424,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
       'distinct': distinct,
       'table': table,
       'columns': columns,
-      'selection': where,         // note the name mapping
+      'selection': where, // note the name mapping
       'selectionArgs': whereArgs, // note the name mapping
       'groupBy': groupBy,
       'having': having,
@@ -413,8 +433,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
     };
     final List<dynamic> result = await _channel.invokeMethod('query', request);
     assert(result.length == 2);
-    final List<String> cursorColumns = (result[0] as List<dynamic>).cast<String>();
-    final List<List<dynamic>> cursorRows = (result[1] as List<dynamic>).cast<List<dynamic>>();
+    final List<String> cursorColumns =
+        (result[0] as List<dynamic>).cast<String>();
+    final List<List<dynamic>> cursorRows =
+        (result[1] as List<dynamic>).cast<List<dynamic>>();
     return SQLiteCursor.from(columns: cursorColumns, rows: cursorRows);
   }
 
@@ -423,12 +445,20 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// Runs the provided SQL and returns a cursor over the result set.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#rawQuery(java.lang.String,%20java.lang.String[])
-  Future<SQLiteCursor> rawQuery(final String sql, [final List<String> args = const <String>[]]) async {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql, 'args': args};
-    final List<dynamic> result = await _channel.invokeMethod('rawQuery', request);
+  Future<SQLiteCursor> rawQuery(final String sql,
+      [final List<String> args = const <String>[]]) async {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'sql': sql,
+      'args': args
+    };
+    final List<dynamic> result =
+        await _channel.invokeMethod('rawQuery', request);
     assert(result.length == 2);
-    final List<String> cursorColumns = (result[0] as List<dynamic>).cast<String>();
-    final List<List<dynamic>> cursorRows = (result[1] as List<dynamic>).cast<List<dynamic>>();
+    final List<String> cursorColumns =
+        (result[0] as List<dynamic>).cast<String>();
+    final List<List<dynamic>> cursorRows =
+        (result[1] as List<dynamic>).cast<List<dynamic>>();
     return SQLiteCursor.from(columns: cursorColumns, rows: cursorRows);
   }
 
@@ -470,7 +500,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setForeignKeyConstraintsEnabled(boolean)
   Future<void> setForeignKeyConstraintsEnabled(final bool enable) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'enable': enable};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'enable': enable
+    };
     return _channel.invokeMethod('setForeignKeyConstraintsEnabled', request);
   }
 
@@ -481,7 +514,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setLocale(java.util.Locale)
   Future<void> setLocale(final Locale locale) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'locale': locale.toString()};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'locale': locale.toString()
+    };
     return _channel.invokeMethod('setLocale', request);
   }
 
@@ -495,7 +531,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaxSqlCacheSize(int)
   Future<void> setMaxSqlCacheSize(final int cacheSize) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'cacheSize': cacheSize};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'cacheSize': cacheSize
+    };
     return _channel.invokeMethod('setMaxSqlCacheSize', request);
   }
 
@@ -505,7 +544,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setMaximumSize(long)
   Future<void> setMaximumSize(final int numBytes) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'numBytes': numBytes};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'numBytes': numBytes
+    };
     return _channel.invokeMethod('setMaximumSize', request);
   }
 
@@ -517,7 +559,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setPageSize(long)
   Future<void> setPageSize(final int numBytes) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'numBytes': numBytes};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'numBytes': numBytes
+    };
     return _channel.invokeMethod('setPageSize', request);
   }
 
@@ -538,7 +583,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#setVersion(int)
   Future<void> setVersion(final int version) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'version': version};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'version': version
+    };
     return _channel.invokeMethod('setVersion', request);
   }
 
@@ -588,7 +636,10 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#validateSql(java.lang.String,%20android.os.CancellationSignal)
   Future<void> validateSql(final String sql) {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sql': sql};
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'sql': sql
+    };
     return _channel.invokeMethod('validateSql', request);
   }
 
@@ -606,8 +657,12 @@ abstract class SQLiteDatabase implements SQLiteClosable {
   /// started the transaction immediately.
   ///
   /// See: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#yieldIfContendedSafely()
-  Future<bool> yieldIfContendedSafely([final int sleepAfterYieldDelay = 0]) async {
-    final Map<String, dynamic> request = <String, dynamic>{'id': id, 'sleepAfterYieldDelay': sleepAfterYieldDelay};
+  Future<bool> yieldIfContendedSafely(
+      [final int sleepAfterYieldDelay = 0]) async {
+    final Map<String, dynamic> request = <String, dynamic>{
+      'id': id,
+      'sleepAfterYieldDelay': sleepAfterYieldDelay
+    };
     return await _channel.invokeMethod('yieldIfContendedSafely', request);
   }
 }
