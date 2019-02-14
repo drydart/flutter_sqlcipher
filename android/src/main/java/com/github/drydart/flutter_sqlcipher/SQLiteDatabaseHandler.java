@@ -18,15 +18,15 @@ import java.util.Locale;
 import java.util.Map;
 import net.sqlcipher.database.SQLiteDatabase;
 
-/** SQLiteDatabaseMethodHandler */
+/** SQLiteDatabaseHandler */
 @SuppressWarnings("unchecked")
-class SQLiteDatabaseMethodHandler extends FlutterMethodCallHandler {
+class SQLiteDatabaseHandler extends FlutterMethodCallHandler {
   static final String CHANNEL = "flutter_sqlcipher/SQLiteDatabase";
 
   final Map<Integer, SQLiteDatabase> databases = new HashMap<>();
   int databaseID;
 
-  SQLiteDatabaseMethodHandler(final Registrar registrar) {
+  SQLiteDatabaseHandler(final Registrar registrar) {
     super(registrar);
   }
 

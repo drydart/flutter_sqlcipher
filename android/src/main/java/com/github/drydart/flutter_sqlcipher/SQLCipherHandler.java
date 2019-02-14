@@ -9,11 +9,11 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import net.sqlcipher.database.SQLiteDatabase;
 
-/** SQLiteMethodHandler */
-class SQLiteMethodHandler extends FlutterMethodCallHandler {
-  static final String CHANNEL = "flutter_sqlcipher/SQLite";
+/** SQLCipherHandler */
+class SQLCipherHandler extends FlutterMethodCallHandler {
+  static final String CHANNEL = "flutter_sqlcipher/SQLCipher";
 
-  SQLiteMethodHandler(final Registrar registrar) {
+  SQLCipherHandler(final Registrar registrar) {
     super(registrar);
   }
 
@@ -30,7 +30,7 @@ class SQLiteMethodHandler extends FlutterMethodCallHandler {
       case "getVersion": {
         final SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(":memory:", (String)null, null);
         try {
-          final Cursor cursor = db.rawQuery("SELECT sqlite_version()", null);
+          final Cursor cursor = db.rawQuery("PRAGMA cipher_version", null);
           try {
             cursor.moveToNext();
             result.success(cursor.getString(0));
