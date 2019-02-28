@@ -2,8 +2,6 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show PlatformException;
-import 'package:flutter_sqlcipher/sqlite.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
 
