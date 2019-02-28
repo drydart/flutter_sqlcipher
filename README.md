@@ -276,4 +276,4 @@ See Also
 --------
 
 - The [sql_builder](https://pub.dartlang.org/packages/sql_builder) package
-  that implements a fluent interface for constructing SQL queries.
+  implements a fluent DSL interface for constructing SQL queries.
