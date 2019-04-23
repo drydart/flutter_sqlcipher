@@ -429,7 +429,7 @@ abstract class SQLiteDatabase implements SQLiteClosable {
       'groupBy': groupBy,
       'having': having,
       'orderBy': orderBy,
-      'limit': limit.toString(),
+      'limit': limit?.toString(),
     };
     final List<dynamic> result = await _channel.invokeMethod('query', request);
     assert(result.length == 2);
