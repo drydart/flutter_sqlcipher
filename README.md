@@ -5,6 +5,7 @@ SQLCipher Database for Flutter
 [![Pub package](https://img.shields.io/pub/v/flutter_sqlcipher.svg)](https://pub.dartlang.org/packages/flutter_sqlcipher)
 [![Dartdoc reference](https://img.shields.io/badge/dartdoc-reference-blue.svg)](https://pub.dartlang.org/documentation/flutter_sqlcipher/latest/)
 [![Travis CI build status](https://img.shields.io/travis/drydart/flutter_sqlcipher/master.svg)](https://travis-ci.org/drydart/flutter_sqlcipher)
+[![Liberapay patrons](http://img.shields.io/liberapay/patrons/drydart.svg?logo=liberapay)](https://liberapay.com/drydart/donate)
 
 This is a [Flutter](https://flutter.io/) plugin that bundles and wraps
 [SQLCipher for Android](https://www.zetetic.net/sqlcipher/sqlcipher-for-android/),
