@@ -446,8 +446,9 @@ class SQLiteDatabaseHandler extends FlutterMethodCallHandler {
     assert(input != null);
 
     ContentValues cv = new ContentValues(input.size());
-    for (String key : input.keySet()) {
-      Object value = input.get(key);
+    for (final Map.Entry<String,Object> entry : input.entrySet()) {
+      final String key = entry.getKey();
+      final Object value = entry.getValue();
 
       if (value == null) {
         cv.putNull(key);
