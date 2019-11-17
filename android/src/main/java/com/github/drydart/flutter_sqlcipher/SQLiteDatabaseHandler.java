@@ -445,9 +445,44 @@ class SQLiteDatabaseHandler extends FlutterMethodCallHandler {
   convertMapToContentValues(final Map<String, Object> input) {
     assert(input != null);
 
-    final Parcel parcel = Parcel.obtain();
-    parcel.writeMap(input);
-    parcel.setDataPosition(0);
-    return ContentValues.CREATOR.createFromParcel(parcel);
+    ContentValues cv = new ContentValues(input.size());
+    for (String key : input.keySet()) {
+      Object value = input.get(key);
+
+      if (value == null) {
+        cv.putNull(key);
+      }
+      else if (value instanceof Boolean) {
+        cv.put(key, (Boolean)value);
+      }
+      else if (value instanceof Byte) {
+        cv.put(key, (Byte)value);
+      }
+      else if (value instanceof Short) {
+        cv.put(key, (Short)value);
+      }
+      else if (value instanceof Integer) {
+        cv.put(key, (Integer)value);
+      }
+      else if (value instanceof Long) {
+        cv.put(key, (Long)value);
+      }
+      else if (value instanceof Double) {
+        cv.put(key, (Double)value);
+      }
+      else if (value instanceof Float) {
+        cv.put(key, (Float)value);
+      }
+      else if (value instanceof String) {
+        cv.put(key, (String)value);
+      }
+      else if (value instanceof byte[]) {
+        cv.put(key, (byte[])value);
+      }
+      else {
+        throw new IllegalArgumentException("Unsupported class type " + value.getClass() + " for key " + key);
+      }
+    }
+    return cv;
   }
 }
